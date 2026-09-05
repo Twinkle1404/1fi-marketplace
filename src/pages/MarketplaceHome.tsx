@@ -58,12 +58,22 @@ export default function MarketplaceHome() {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search products..."
           aria-label="Search products"
-          className="w-full rounded-[var(--radius-pill)] py-3 pl-10 pr-4 text-[14px] transition-shadow focus:shadow-md"
+          className="w-full rounded-[var(--radius-pill)] py-3 pl-10 pr-10 text-[14px] transition-shadow focus:shadow-md"
           style={{
             backgroundColor: 'var(--color-bg-subtle)',
             color: 'var(--color-text-primary)',
           }}
         />
+        {search && (
+          <button
+            type="button"
+            onClick={() => setSearch('')}
+            aria-label="Clear search query"
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 text-gray-600 hover:bg-gray-300 transition-colors text-[11px] font-bold"
+          >
+            ✕
+          </button>
+        )}
       </div>
 
       {/* ── Content ── */}
@@ -76,6 +86,16 @@ export default function MarketplaceHome() {
           <EmptyState
             title="No products found"
             description="Try searching with a different product or brand."
+            action={
+              <button
+                type="button"
+                onClick={() => setSearch('')}
+                className="rounded-[var(--radius-pill)] px-5 py-2 text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
+                style={{ backgroundColor: 'var(--color-primary)' }}
+              >
+                Clear search
+              </button>
+            }
             icon={
               <svg
                 width="28"

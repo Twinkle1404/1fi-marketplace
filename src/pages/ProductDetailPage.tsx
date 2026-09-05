@@ -42,6 +42,9 @@ export default function ProductDetailPage() {
       } else if (product.emiPlans.length > 0) {
         setSelectedPlanId(product.emiPlans[0].id);
       }
+
+      // Reset image error state for new product
+      setImgError(false);
     }
   }, [product]);
 

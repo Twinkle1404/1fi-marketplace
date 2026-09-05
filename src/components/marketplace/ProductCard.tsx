@@ -98,16 +98,16 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.name}
         </h3>
 
-        <div className="mt-2 flex items-end justify-between">
+        <div className="mt-2 flex flex-wrap items-baseline justify-between gap-1">
           <span
-            className="text-[16px] font-bold"
+            className="text-[15px] font-bold sm:text-[16px]"
             style={{ color: 'var(--color-text-primary)' }}
           >
             {formatPrice(price)}
           </span>
 
           <span
-            className="text-[11px]"
+            className="text-[11px] shrink-0"
             style={{ color: 'var(--color-text-secondary)' }}
           >
             {variantCount} {variantCount === 1 ? 'variant' : 'variants'}

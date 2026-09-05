@@ -4,9 +4,10 @@ interface EmptyStateProps {
   title: string;
   description: string;
   icon?: ReactNode;
+  action?: ReactNode;
 }
 
-export default function EmptyState({ title, description, icon }: EmptyStateProps) {
+export default function EmptyState({ title, description, icon, action }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center py-12 text-center">
       {icon && (
@@ -31,6 +32,8 @@ export default function EmptyState({ title, description, icon }: EmptyStateProps
       >
         {description}
       </p>
+
+      {action && <div className="mt-5">{action}</div>}
     </div>
   );
 }
