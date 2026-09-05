@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 interface NavItem {
   to: string;
@@ -89,6 +89,12 @@ function isShopActive(path: string): boolean {
 }
 
 export default function BottomNav() {
+  const location = useLocation();
+
+  if (location.pathname.startsWith('/product/')) {
+    return null;
+  }
+
   return (
     <nav
       aria-label="Main navigation"

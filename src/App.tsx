@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useParams, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppShell from './components/layout/AppShell';
 import BottomNav from './components/layout/BottomNav';
 import EmptyState from './components/ui/EmptyState';
@@ -6,6 +6,7 @@ import ShopPage from './pages/ShopPage';
 import TopBrandsPage from './pages/TopBrandsPage';
 import NearbyStoresPage from './pages/NearbyStoresPage';
 import MarketplaceHome from './pages/MarketplaceHome';
+import ProductDetailPage from './pages/ProductDetailPage';
 
 /* ── Placeholder pages ── */
 
@@ -81,35 +82,6 @@ function ProfilePage() {
   );
 }
 
-function ProductDetailPlaceholder() {
-  const { id } = useParams();
-  return (
-    <div className="px-[var(--space-4)] pt-6">
-      <Link
-        to="/shop/marketplace"
-        className="mb-4 inline-flex items-center gap-1 text-[14px] font-medium"
-        style={{ color: 'var(--color-primary)' }}
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M15 18l-6-6 6-6" />
-        </svg>
-        Back to Marketplace
-      </Link>
-      <EmptyState
-        title="Product Details"
-        description={`Details for product "${id ?? ''}" coming in the next phase.`}
-        icon={
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <circle cx="8.5" cy="8.5" r="1.5" />
-            <path d="m21 15-5-5L5 21" />
-          </svg>
-        }
-      />
-    </div>
-  );
-}
-
 export default function App() {
   return (
     <BrowserRouter>
@@ -121,7 +93,7 @@ export default function App() {
             <Route path="nearby-stores" element={<NearbyStoresPage />} />
             <Route path="marketplace" element={<MarketplaceHome />} />
           </Route>
-          <Route path="/product/:id" element={<ProductDetailPlaceholder />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/emi-dues" element={<EmiDuesPage />} />
           <Route path="/limit" element={<LimitPage />} />
           <Route path="/profile" element={<ProfilePage />} />

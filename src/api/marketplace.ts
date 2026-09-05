@@ -17,9 +17,13 @@ export function fetchProducts(): Promise<Product[]> {
 }
 
 export function fetchProductById(id: string): Promise<Product | undefined> {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(mockProducts.find((product) => product.id === id));
+      if (SIMULATE_RANDOM_ERROR) {
+        reject(new Error('Failed to load product'));
+      } else {
+        resolve(mockProducts.find((product) => product.id === id));
+      }
     }, NETWORK_DELAY);
   });
 }
