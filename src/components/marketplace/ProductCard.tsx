@@ -30,7 +30,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       to={`/product/${product.id}`}
-      className="group flex flex-col overflow-hidden rounded-[var(--radius-md)] border border-[#EEEEEE] bg-[var(--color-bg)] transition-all duration-200 hover:border-[#D5C6F9] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+      className="group flex flex-col overflow-hidden rounded-[var(--radius-md)] border border-gray-200 bg-[var(--color-bg)] transition-all duration-200 hover:border-[var(--color-primary-disabled)] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
       aria-label={`${product.name} by ${product.brand}, ${formatPrice(price)}`}
     >
       {/* Image section with pinned No-cost EMI badge */}
@@ -47,9 +47,8 @@ export default function ProductCard({ product }: ProductCardProps) {
           <span
             className="absolute left-2.5 top-2.5 z-10 rounded-[var(--radius-pill)] px-2.5 py-0.5 text-[10px] sm:text-[11px] font-bold tracking-tight shadow-sm"
             style={{
-              backgroundColor: '#E6F9F2',
-              color: 'var(--color-success)',
-              border: '1px solid #B3F2DC',
+              backgroundColor: 'var(--color-success-bg)',
+              color: 'var(--color-success-text)',
             }}
           >
             No-cost EMI

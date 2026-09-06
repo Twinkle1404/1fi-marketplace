@@ -7,7 +7,7 @@ export default function ProductDetailSkeleton() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         {/* Left column: Image Skeleton */}
         <div className="lg:col-span-5 w-full">
-          <div className="rounded-[var(--radius-lg)] border border-[#EEEEEE] bg-white p-4 sm:p-6 shadow-sm">
+          <div className="rounded-[var(--radius-lg)] border border-gray-200 bg-[var(--color-bg)] p-4 sm:p-6 shadow-sm">
             <div
               className="aspect-square w-full animate-pulse rounded-[var(--radius-md)]"
               style={{ backgroundColor: 'var(--color-primary-light)', opacity: 0.6 }}
@@ -51,7 +51,7 @@ export default function ProductDetailSkeleton() {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="h-24 w-full animate-pulse rounded-[var(--radius-md)] border border-gray-200 bg-white"
+                className="h-24 w-full animate-pulse rounded-[var(--radius-md)] border border-gray-200 bg-[var(--color-bg)]"
               />
             ))}
           </div>

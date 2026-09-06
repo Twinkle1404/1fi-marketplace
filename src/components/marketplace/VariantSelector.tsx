@@ -47,11 +47,11 @@ export default function VariantSelector({
             role="radio"
             aria-checked={isSelected}
             onClick={() => onSelect(variant)}
-            className="flex items-center gap-1.5 rounded-[var(--radius-pill)] border px-4 py-2 sm:px-5 sm:py-2.5 text-[13px] sm:text-[14px] transition-all duration-200 hover:border-[#CFC0F5] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+            className="flex items-center gap-1.5 rounded-[var(--radius-pill)] border px-4 py-2 sm:px-5 sm:py-2.5 text-[13px] sm:text-[14px] transition-all duration-200 hover:border-[var(--color-primary-disabled)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
             style={{
               backgroundColor: isSelected ? 'var(--color-primary)' : 'var(--color-bg)',
-              color: isSelected ? '#FFFFFF' : 'var(--color-text-primary)',
-              borderColor: isSelected ? 'var(--color-primary)' : '#E5E7EB',
+              color: isSelected ? 'var(--color-bg)' : 'var(--color-text-primary)',
+              borderColor: isSelected ? 'var(--color-primary)' : 'var(--color-icon-muted)',
               boxShadow: isSelected ? '0 3px 12px rgba(113, 45, 220, 0.28)' : 'none',
               fontWeight: isSelected ? 700 : 500,
             }}

@@ -63,7 +63,7 @@ export default function ConfirmationModal({
 
       {/* Modal / Sheet Container */}
       <div
-        className="relative z-10 w-full max-w-[430px] rounded-t-[var(--radius-lg)] sm:rounded-[var(--radius-lg)] bg-white p-6 shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-300"
+        className="relative z-10 w-full max-w-[430px] rounded-t-[var(--radius-lg)] sm:rounded-[var(--radius-lg)] bg-[var(--color-bg)] p-6 shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-300"
         style={{
           backgroundColor: 'var(--color-bg)',
         }}

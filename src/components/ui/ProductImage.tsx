@@ -37,7 +37,7 @@ export default function ProductImage({
       ) : (
         <div
           data-placeholder="true"
-          className="flex h-full w-full items-center justify-center rounded-[inherit] border-2 border-dashed border-[#CFC0F5] p-6 transition-colors"
+          className="flex h-full w-full items-center justify-center rounded-[inherit] border-2 border-dashed border-[var(--color-primary-disabled)] p-6 transition-colors"
           style={{ backgroundColor: 'var(--color-primary-light)' }}
           aria-label={`Image placeholder for ${alt}`}
         >

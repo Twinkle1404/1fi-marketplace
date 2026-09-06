@@ -27,8 +27,8 @@ export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardP
       }}
       className="group relative cursor-pointer rounded-[var(--radius-md)] border-2 p-4 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
       style={{
-        backgroundColor: isSelected ? 'rgba(237, 232, 255, 0.45)' : 'var(--color-bg)',
-        borderColor: isSelected ? 'var(--color-primary)' : '#E5E7EB',
+        backgroundColor: isSelected ? 'var(--color-primary-light)' : 'var(--color-bg)',
+        borderColor: isSelected ? 'var(--color-primary)' : 'var(--color-icon-muted)',
         boxShadow: isSelected ? '0 4px 16px rgba(113, 45, 220, 0.12)' : 'none',
       }}
     >
@@ -46,9 +46,8 @@ export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardP
               <span
                 className="rounded-[var(--radius-pill)] px-2.5 py-0.5 text-[10px] font-bold tracking-tight shadow-sm"
                 style={{
-                  backgroundColor: '#E6F9F2',
-                  color: 'var(--color-success)',
-                  border: '1px solid #B3F2DC',
+                  backgroundColor: 'var(--color-success-bg)',
+                  color: 'var(--color-success-text)',
                 }}
               >
                 No-cost EMI
@@ -89,7 +88,7 @@ export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardP
         <div
           className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-200"
           style={{
-            borderColor: isSelected ? 'var(--color-primary)' : '#D1D5DB',
+            borderColor: isSelected ? 'var(--color-primary)' : 'var(--color-icon-muted)',
             backgroundColor: isSelected ? 'var(--color-primary)' : 'transparent',
           }}
           aria-hidden="true"
@@ -100,7 +99,7 @@ export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardP
               height="14"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#FFFFFF"
+              stroke="var(--color-bg)"
               strokeWidth="3.5"
               strokeLinecap="round"
               strokeLinejoin="round"

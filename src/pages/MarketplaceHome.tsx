@@ -75,7 +75,7 @@ export default function MarketplaceHome() {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products or brands..."
             aria-label="Search products"
-            className="w-full rounded-[var(--radius-pill)] border border-[#E5E7EB] bg-white py-3 pl-11 pr-10 text-[14px] shadow-sm transition-all focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-light)]"
+            className="w-full rounded-[var(--radius-pill)] border border-gray-200 bg-[var(--color-bg)] py-3 pl-11 pr-10 text-[14px] shadow-sm transition-all focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-light)]"
             style={{ color: 'var(--color-text-primary)' }}
           />
           {search && (

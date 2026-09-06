@@ -4,7 +4,7 @@ export default function Skeleton() {
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
         <div
           key={i}
-          className="overflow-hidden rounded-[var(--radius-md)] border border-[#EEEEEE] shadow-sm"
+          className="overflow-hidden rounded-[var(--radius-md)] border border-gray-200 shadow-sm"
           style={{ backgroundColor: 'var(--color-bg)' }}
         >
           {/* Image area */}
@@ -15,29 +15,14 @@ export default function Skeleton() {
           {/* Content area */}
           <div className="p-3.5 sm:p-4">
             {/* Brand */}
-            <div
-              className="mb-2 h-3 w-14 animate-pulse rounded"
-              style={{ backgroundColor: '#EBEBEB' }}
-            />
+            <div className="mb-2 h-3 w-14 animate-pulse rounded bg-gray-200" />
             {/* Product name */}
-            <div
-              className="mb-1.5 h-4 w-4/5 animate-pulse rounded"
-              style={{ backgroundColor: '#EBEBEB' }}
-            />
-            <div
-              className="mb-3 h-4 w-3/5 animate-pulse rounded"
-              style={{ backgroundColor: '#EBEBEB' }}
-            />
+            <div className="mb-1.5 h-4 w-4/5 animate-pulse rounded bg-gray-200" />
+            <div className="mb-3 h-4 w-3/5 animate-pulse rounded bg-gray-200" />
             {/* Price row */}
             <div className="flex items-center justify-between pt-1">
-              <div
-                className="h-5 w-20 animate-pulse rounded"
-                style={{ backgroundColor: '#EBEBEB' }}
-              />
-              <div
-                className="h-3 w-12 animate-pulse rounded"
-                style={{ backgroundColor: '#EBEBEB' }}
-              />
+              <div className="h-5 w-20 animate-pulse rounded bg-gray-200" />
+              <div className="h-3 w-12 animate-pulse rounded bg-gray-200" />
             </div>
           </div>
         </div>

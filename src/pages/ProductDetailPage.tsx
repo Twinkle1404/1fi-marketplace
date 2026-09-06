@@ -143,7 +143,7 @@ export default function ProductDetailPage() {
   return (
     <div className="w-full pb-32 lg:pb-16">
       {/* ── Top Bar with Back Navigation ── */}
-      <div className="w-full border-b border-gray-200/80 bg-white/90 backdrop-blur-md sticky top-0 z-30">
+      <div className="w-full border-b border-gray-200/80 bg-[var(--color-bg)]/90 backdrop-blur-md sticky top-0 z-30">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
           <button
             type="button"
@@ -183,7 +183,7 @@ export default function ProductDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left Column: Product Image Card */}
           <div className="lg:col-span-5 w-full">
-            <div className="sticky top-20 rounded-[var(--radius-lg)] border border-[#EEEEEE] bg-white p-4 sm:p-6 shadow-sm">
+            <div className="sticky top-20 rounded-[var(--radius-lg)] border border-gray-200 bg-[var(--color-bg)] p-4 sm:p-6 shadow-sm">
               <div className="relative aspect-square w-full overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-primary-light)]">
                 <ProductImage
                   src={product.imageUrl}
@@ -196,9 +196,8 @@ export default function ProductDetailPage() {
                   <span
                     className="absolute left-3.5 top-3.5 z-10 rounded-[var(--radius-pill)] px-3 py-1 text-[11px] font-bold tracking-tight shadow-sm"
                     style={{
-                      backgroundColor: '#E6F9F2',
-                      color: 'var(--color-success)',
-                      border: '1px solid #B3F2DC',
+                      backgroundColor: 'var(--color-success-bg)',
+                      color: 'var(--color-success-text)',
                     }}
                   >
                     No-cost EMI available
@@ -343,7 +342,7 @@ export default function ProductDetailPage() {
       </div>
 
       {/* ── Sticky Bottom CTA Bar (Mobile & Tablet) ── */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 px-4 py-3.5 backdrop-blur-md border-t border-gray-100 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[var(--color-bg)]/95 px-4 py-3.5 backdrop-blur-md border-t border-gray-100 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
         <div className="w-full max-w-lg mx-auto">
           <CTAButton
             label={ctaLabel}

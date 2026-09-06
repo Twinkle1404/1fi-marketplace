@@ -24,7 +24,7 @@ export default function ShopTabs() {
               to={tab.to}
               className="flex-1 rounded-[var(--radius-pill)] px-3 py-2 sm:py-2.5 text-center text-[12px] sm:text-[13px] leading-tight transition-all duration-200"
               style={{
-                backgroundColor: isActive ? '#FFFFFF' : 'transparent',
+                backgroundColor: isActive ? 'var(--color-bg)' : 'transparent',
                 color: isActive ? 'var(--color-primary)' : 'var(--color-text-secondary)',
                 fontWeight: isActive ? 700 : 500,
                 boxShadow: isActive ? '0 2px 8px rgba(113, 45, 220, 0.12)' : 'none',
