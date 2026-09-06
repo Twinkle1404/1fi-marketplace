@@ -98,9 +98,9 @@ export default function BottomNav() {
   return (
     <nav
       aria-label="Main navigation"
-      className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-32px)] max-w-[398px] -translate-x-1/2"
+      className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-32px)] max-w-[420px] -translate-x-1/2"
     >
-      <div className="flex items-center justify-around rounded-[var(--radius-lg)] bg-white px-1 py-2 shadow-[0_4px_24px_rgba(0,0,0,0.10)]">
+      <div className="flex items-center justify-around rounded-[var(--radius-pill)] border border-gray-100 bg-white px-2 py-2 shadow-[0_6px_24px_rgba(113,45,220,0.10)]">
         {navItems.map((item) => (
           <NavLink
             key={item.to}

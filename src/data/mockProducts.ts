@@ -5,7 +5,7 @@ export const mockProducts: Product[] = [
     id: 'iphone-16-pro',
     name: 'iPhone 16 Pro',
     brand: 'Apple',
-    imageUrl: 'https://picsum.photos/seed/iphone16pro/400/400',
+    imageUrl: '',
     basePrice: 119900,
     description:
       'The latest iPhone with A18 Pro chip, 48MP camera system, and titanium design. Experience the future of smartphones.',
@@ -26,7 +26,7 @@ export const mockProducts: Product[] = [
     id: 'samsung-galaxy-s25-ultra',
     name: 'Galaxy S25 Ultra',
     brand: 'Samsung',
-    imageUrl: 'https://picsum.photos/seed/galaxys25/400/400',
+    imageUrl: '',
     basePrice: 129999,
     description:
       'Samsung flagship with Snapdragon 8 Elite, S Pen, 200MP camera, and titanium frame. AI-powered Galaxy experience.',
@@ -46,7 +46,7 @@ export const mockProducts: Product[] = [
     id: 'macbook-air-m3',
     name: 'MacBook Air M3',
     brand: 'Apple',
-    imageUrl: 'https://picsum.photos/seed/macbookairm3/400/400',
+    imageUrl: '',
     basePrice: 114900,
     description:
       'Supercharged by M3 chip with up to 18 hours of battery life. The world\'s best consumer laptop, now even faster.',
@@ -66,7 +66,7 @@ export const mockProducts: Product[] = [
     id: 'sony-bravia-55',
     name: 'Bravia 55" 4K OLED',
     brand: 'Sony',
-    imageUrl: 'https://picsum.photos/seed/sonybravia55/400/400',
+    imageUrl: '',
     basePrice: 99990,
     description:
       'Stunning 4K OLED with Cognitive Processor XR, perfect blacks, and immersive Acoustic Surface Audio+ technology.',
@@ -86,7 +86,7 @@ export const mockProducts: Product[] = [
     id: 'sony-wh1000xm5',
     name: 'WH-1000XM5',
     brand: 'Sony',
-    imageUrl: 'https://picsum.photos/seed/sonywh1000xm5/400/400',
+    imageUrl: '',
     basePrice: 26990,
     description:
       'Industry-leading noise cancellation with Auto NC Optimizer, 30-hour battery, and crystal-clear hands-free calling.',
@@ -105,7 +105,7 @@ export const mockProducts: Product[] = [
     id: 'ipad-air-m2',
     name: 'iPad Air M2',
     brand: 'Apple',
-    imageUrl: 'https://picsum.photos/seed/ipadairm2/400/400',
+    imageUrl: '',
     basePrice: 74900,
     description:
       'Powerful M2 chip, stunning Liquid Retina display, and Apple Pencil Pro support. The versatile tablet for everything.',
@@ -125,7 +125,7 @@ export const mockProducts: Product[] = [
     id: 'samsung-galaxy-watch7',
     name: 'Galaxy Watch 7',
     brand: 'Samsung',
-    imageUrl: 'https://picsum.photos/seed/galaxywatch7/400/400',
+    imageUrl: '',
     basePrice: 29999,
     description:
       'Advanced health monitoring with BioActive Sensor, sleep coaching, Galaxy AI insights, and durable sapphire crystal.',
@@ -145,7 +145,7 @@ export const mockProducts: Product[] = [
     id: 'lg-washing-machine',
     name: '8 kg AI Direct Drive',
     brand: 'LG',
-    imageUrl: 'https://picsum.photos/seed/lgwashingmachine/400/400',
+    imageUrl: '',
     basePrice: 38990,
     description:
       'AI-powered washing with Direct Drive motor, steam wash, ThinQ app control, and 10-year motor warranty.',

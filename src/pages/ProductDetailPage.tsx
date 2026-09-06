@@ -7,6 +7,7 @@ import EMIPlanList from '../components/marketplace/EMIPlanList';
 import CTAButton from '../components/marketplace/CTAButton';
 import ConfirmationModal from '../components/marketplace/ConfirmationModal';
 import ProductDetailSkeleton from '../components/ui/ProductDetailSkeleton';
+import ProductImage from '../components/ui/ProductImage';
 import ErrorState from '../components/ui/ErrorState';
 
 function formatPrice(amount: number): string {
@@ -21,7 +22,6 @@ export default function ProductDetailPage() {
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
   const [selectedPlanId, setSelectedPlanId] = useState<string>('');
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const [imgError, setImgError] = useState(false);
 
   // Initialize selected variant and plan when product loads
   useEffect(() => {
@@ -31,7 +31,6 @@ export default function ProductDetailPage() {
       if (firstInStock) {
         setSelectedVariant(firstInStock);
       } else if (product.variants.length > 0) {
-        // Fallback if all out of stock
         setSelectedVariant(product.variants[0]);
       }
 
@@ -42,9 +41,6 @@ export default function ProductDetailPage() {
       } else if (product.emiPlans.length > 0) {
         setSelectedPlanId(product.emiPlans[0].id);
       }
-
-      // Reset image error state for new product
-      setImgError(false);
     }
   }, [product]);
 
@@ -85,7 +81,7 @@ export default function ProductDetailPage() {
   // Error state
   if (error) {
     return (
-      <div className="px-[var(--space-4)] pt-8">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
         <ErrorState onRetry={refetch} />
       </div>
     );
@@ -94,7 +90,7 @@ export default function ProductDetailPage() {
   // Product not found state
   if (!product) {
     return (
-      <div className="flex flex-col items-center px-[var(--space-4)] py-16 text-center">
+      <div className="flex flex-col items-center px-4 py-20 text-center">
         <div
           className="mb-5 flex h-16 w-16 items-center justify-center rounded-full"
           style={{ backgroundColor: 'var(--color-primary-light)' }}
@@ -106,20 +102,19 @@ export default function ProductDetailPage() {
           </svg>
         </div>
         <h2
-          className="text-[20px] font-bold"
+          className="text-2xl font-bold"
           style={{ color: 'var(--color-text-primary)' }}
         >
           Product not found
         </h2>
         <p
-          className="mt-2 max-w-[260px] text-[14px] leading-relaxed"
-          style={{ color: 'var(--color-text-secondary)' }}
+          className="mt-2 max-w-sm text-sm text-[var(--color-text-secondary)] leading-relaxed"
         >
           The product you&apos;re looking for is no longer available.
         </p>
         <Link
           to="/shop/marketplace"
-          className="mt-6 inline-flex items-center justify-center rounded-[var(--radius-pill)] px-6 py-2.5 text-[14px] font-semibold text-white transition-opacity hover:opacity-90"
+          className="mt-6 inline-flex items-center justify-center rounded-[var(--radius-pill)] px-7 py-3 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
           style={{ backgroundColor: 'var(--color-primary)' }}
         >
           Back to Marketplace
@@ -146,186 +141,219 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <div className="relative min-h-full pb-32">
-      {/* Top Header / Back Button */}
-      <div className="sticky top-0 z-30 flex items-center bg-white/90 px-[var(--space-4)] py-3.5 backdrop-blur-md border-b border-gray-100">
-        <button
-          type="button"
-          onClick={handleBack}
-          aria-label="Back to Marketplace"
-          className="group flex items-center gap-1.5 text-[14px] font-semibold transition-colors hover:text-[var(--color-primary)]"
-          style={{ color: 'var(--color-text-primary)' }}
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-            className="transition-transform group-hover:-translate-x-0.5"
-          >
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-          <span>Marketplace</span>
-        </button>
-      </div>
-
-      <div className="px-[var(--space-4)] pt-3">
-        {/* Product Image */}
-        <div
-          className="relative aspect-square w-full overflow-hidden rounded-[var(--radius-lg)] p-4 flex items-center justify-center"
-          style={{ backgroundColor: 'var(--color-primary-light)' }}
-        >
-          {!imgError ? (
-            <img
-              src={product.imageUrl}
-              alt={`${product.brand} ${product.name}`}
-              className="h-full w-full object-contain mix-blend-multiply"
-              loading="eager"
-              onError={() => setImgError(true)}
-            />
-          ) : (
-            <div className="flex flex-col items-center justify-center text-gray-400">
-              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary-disabled)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <circle cx="8.5" cy="8.5" r="1.5" />
-                <path d="m21 15-5-5L5 21" />
-              </svg>
-            </div>
-          )}
-
-          {/* No-cost EMI badge on image */}
-          {product.emiPlans.some((p) => p.interestRate === 0) && (
-            <span
-              className="absolute left-3 top-3 rounded-[var(--radius-sm)] px-2.5 py-1 text-[11px] font-semibold text-white shadow-sm"
-              style={{ backgroundColor: 'var(--color-success)' }}
-            >
-              No-cost EMI available
-            </span>
-          )}
-        </div>
-
-        {/* Product Information */}
-        <div className="mt-4">
-          <span
-            className="text-[12px] font-semibold uppercase tracking-wider"
-            style={{ color: 'var(--color-text-secondary)' }}
-          >
-            {product.brand}
-          </span>
-
-          <h1
-            className="mt-0.5 text-[22px] font-bold leading-tight"
+    <div className="w-full pb-32 lg:pb-16">
+      {/* ── Top Bar with Back Navigation ── */}
+      <div className="w-full border-b border-gray-200/80 bg-white/90 backdrop-blur-md sticky top-0 z-30">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+          <button
+            type="button"
+            onClick={handleBack}
+            aria-label="Back to Marketplace"
+            className="group inline-flex items-center gap-2 text-sm font-bold transition-colors hover:text-[var(--color-primary)]"
             style={{ color: 'var(--color-text-primary)' }}
           >
-            {product.name}
-          </h1>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              className="transition-transform group-hover:-translate-x-1"
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            <span>Back to Marketplace</span>
+          </button>
 
-          <p
-            className="mt-2 text-[14px] leading-relaxed"
+          <span
+            className="text-xs font-semibold uppercase tracking-wider hidden sm:inline"
             style={{ color: 'var(--color-text-secondary)' }}
           >
-            {product.description}
-          </p>
+            1Fi Verified Partner
+          </span>
+        </div>
+      </div>
 
-          {/* Price display */}
-          <div className="mt-3.5 flex items-baseline gap-2">
-            <span
-              className="text-[26px] font-bold tracking-tight"
-              style={{ color: 'var(--color-text-primary)' }}
-            >
-              {formatPrice(currentPrice)}
-            </span>
-            <span
-              className="text-[12px] font-medium"
-              style={{ color: 'var(--color-text-secondary)' }}
-            >
-              (inclusive of all taxes)
-            </span>
+      {/* ── Main Product Detail Content (Responsive 2-column on desktop) ── */}
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Left Column: Product Image Card */}
+          <div className="lg:col-span-5 w-full">
+            <div className="sticky top-20 rounded-[var(--radius-lg)] border border-[#EEEEEE] bg-white p-4 sm:p-6 shadow-sm">
+              <div className="relative aspect-square w-full overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-primary-light)]">
+                <ProductImage
+                  src={product.imageUrl}
+                  alt={`${product.brand} ${product.name}`}
+                  containerClassName="w-full h-full"
+                />
+
+                {/* Pinned No-cost EMI badge on top-left of image */}
+                {product.emiPlans.some((p) => p.interestRate === 0) && (
+                  <span
+                    className="absolute left-3.5 top-3.5 z-10 rounded-[var(--radius-pill)] px-3 py-1 text-[11px] font-bold tracking-tight shadow-sm"
+                    style={{
+                      backgroundColor: '#E6F9F2',
+                      color: 'var(--color-success)',
+                      border: '1px solid #B3F2DC',
+                    }}
+                  >
+                    No-cost EMI available
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Details, Variants, EMI Plans, Action */}
+          <div className="lg:col-span-7 w-full flex flex-col space-y-6">
+            {/* Header info */}
+            <div>
+              <span
+                className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.05em]"
+                style={{ color: 'var(--color-text-secondary)' }}
+              >
+                {product.brand}
+              </span>
+
+              <h1
+                className="mt-1 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-tight"
+                style={{ color: 'var(--color-text-primary)' }}
+              >
+                {product.name}
+              </h1>
+
+              <p
+                className="mt-2.5 text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed"
+              >
+                {product.description}
+              </p>
+
+              {/* Price display */}
+              <div className="mt-4 flex items-baseline gap-2.5">
+                <span
+                  className="text-3xl sm:text-4xl font-bold tracking-tight"
+                  style={{ color: 'var(--color-text-primary)' }}
+                >
+                  {formatPrice(currentPrice)}
+                </span>
+                <span
+                  className="text-xs sm:text-sm font-medium"
+                  style={{ color: 'var(--color-text-secondary)' }}
+                >
+                  (inclusive of all taxes)
+                </span>
+              </div>
+            </div>
+
+            <hr className="border-gray-200/80" />
+
+            {/* ── Variant Selector Section ── */}
+            <section aria-labelledby="variant-heading">
+              <div className="mb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="h-3.5 w-1 rounded-full"
+                    style={{ backgroundColor: 'var(--color-primary)' }}
+                    aria-hidden="true"
+                  />
+                  <h2
+                    id="variant-heading"
+                    className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.05em]"
+                    style={{ color: 'var(--color-text-secondary)' }}
+                  >
+                    Select Variant
+                  </h2>
+                </div>
+                {selectedVariant && (
+                  <span
+                    className="text-[12px] sm:text-[13px] font-bold"
+                    style={{ color: 'var(--color-primary)' }}
+                  >
+                    {selectedVariant.label}
+                  </span>
+                )}
+              </div>
+
+              <VariantSelector
+                variants={product.variants}
+                selectedVariantId={selectedVariant?.id ?? ''}
+                onSelect={(variant) => setSelectedVariant(variant)}
+              />
+
+              {isOutOfStock && (
+                <p className="mt-2.5 text-xs sm:text-sm font-medium text-red-500">
+                  This variant is currently out of stock. Please select another variant to proceed.
+                </p>
+              )}
+            </section>
+
+            <hr className="border-gray-200/80" />
+
+            {/* ── EMI Plans Section ── */}
+            <section aria-labelledby="emi-heading">
+              <div className="mb-3 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="h-3.5 w-1 rounded-full"
+                    style={{ backgroundColor: 'var(--color-primary)' }}
+                    aria-hidden="true"
+                  />
+                  <h2
+                    id="emi-heading"
+                    className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.05em]"
+                    style={{ color: 'var(--color-text-secondary)' }}
+                  >
+                    Choose EMI Plan
+                  </h2>
+                </div>
+                {selectedPlan && (
+                  <span
+                    className="text-[12px] sm:text-[13px] font-bold"
+                    style={{ color: 'var(--color-primary)' }}
+                  >
+                    {selectedPlan.tenureMonths} Months
+                  </span>
+                )}
+              </div>
+
+              <EMIPlanList
+                plans={dynamicEmiPlans}
+                selectedPlanId={selectedPlanId}
+                onSelect={(plan) => setSelectedPlanId(plan.id)}
+              />
+            </section>
+
+            {/* ── Desktop Inline CTA Button ── */}
+            <div className="hidden lg:block pt-4">
+              <CTAButton
+                label={ctaLabel}
+                onClick={() => setIsConfirmationOpen(true)}
+                disabled={isCtaDisabled}
+              />
+              <p className="mt-2 text-center text-xs text-[var(--color-text-secondary)]">
+                Instant approval with 1Fi Credit Limit • No paperwork
+              </p>
+            </div>
           </div>
         </div>
-
-        {/* Divider */}
-        <hr className="my-5 border-gray-100" />
-
-        {/* Variant Selector Section */}
-        <section aria-labelledby="variant-heading">
-          <div className="mb-2.5 flex items-center justify-between">
-            <h2
-              id="variant-heading"
-              className="text-[12px] font-bold uppercase tracking-wider"
-              style={{ color: 'var(--color-text-secondary)' }}
-            >
-              Select Variant
-            </h2>
-            {selectedVariant && (
-              <span
-                className="text-[12px] font-semibold"
-                style={{ color: 'var(--color-primary)' }}
-              >
-                {selectedVariant.label}
-              </span>
-            )}
-          </div>
-
-          <VariantSelector
-            variants={product.variants}
-            selectedVariantId={selectedVariant?.id ?? ''}
-            onSelect={(variant) => setSelectedVariant(variant)}
-          />
-
-          {isOutOfStock && (
-            <p className="mt-2 text-[12px] font-medium text-red-500">
-              This variant is currently out of stock. Please select another variant to proceed.
-            </p>
-          )}
-        </section>
-
-        {/* Divider */}
-        <hr className="my-5 border-gray-100" />
-
-        {/* EMI Plans Section */}
-        <section aria-labelledby="emi-heading">
-          <div className="mb-2.5 flex items-center justify-between">
-            <h2
-              id="emi-heading"
-              className="text-[12px] font-bold uppercase tracking-wider"
-              style={{ color: 'var(--color-text-secondary)' }}
-            >
-              Choose EMI Plan
-            </h2>
-            {selectedPlan && (
-              <span
-                className="text-[12px] font-semibold"
-                style={{ color: 'var(--color-primary)' }}
-              >
-                {selectedPlan.tenureMonths} Months
-              </span>
-            )}
-          </div>
-
-          <EMIPlanList
-            plans={dynamicEmiPlans}
-            selectedPlanId={selectedPlanId}
-            onSelect={(plan) => setSelectedPlanId(plan.id)}
-          />
-        </section>
       </div>
 
-      {/* Sticky Bottom CTA */}
-      <div className="fixed bottom-0 left-1/2 z-40 w-full max-w-[430px] -translate-x-1/2 bg-white/95 px-4 py-3.5 backdrop-blur-md border-t border-gray-100 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
-        <CTAButton
-          label={ctaLabel}
-          onClick={() => setIsConfirmationOpen(true)}
-          disabled={isCtaDisabled}
-        />
+      {/* ── Sticky Bottom CTA Bar (Mobile & Tablet) ── */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 px-4 py-3.5 backdrop-blur-md border-t border-gray-100 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
+        <div className="w-full max-w-lg mx-auto">
+          <CTAButton
+            label={ctaLabel}
+            onClick={() => setIsConfirmationOpen(true)}
+            disabled={isCtaDisabled}
+          />
+        </div>
       </div>
 
-      {/* Confirmation Modal */}
+      {/* ── Confirmation Modal ── */}
       {selectedPlan && selectedVariant && (
         <ConfirmationModal
           isOpen={isConfirmationOpen}

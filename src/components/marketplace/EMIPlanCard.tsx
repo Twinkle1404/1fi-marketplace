@@ -25,27 +25,31 @@ export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardP
           onSelect();
         }
       }}
-      className="group relative cursor-pointer rounded-[var(--radius-md)] border-2 p-3.5 transition-all duration-200 focus:outline-none"
+      className="group relative cursor-pointer rounded-[var(--radius-md)] border-2 p-4 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
       style={{
-        backgroundColor: isSelected ? 'rgba(237, 232, 255, 0.35)' : 'var(--color-bg)',
+        backgroundColor: isSelected ? 'rgba(237, 232, 255, 0.45)' : 'var(--color-bg)',
         borderColor: isSelected ? 'var(--color-primary)' : '#E5E7EB',
-        boxShadow: isSelected ? '0 2px 12px rgba(113, 45, 220, 0.12)' : 'none',
+        boxShadow: isSelected ? '0 4px 16px rgba(113, 45, 220, 0.12)' : 'none',
       }}
     >
-      <div className="flex items-start justify-between gap-2">
+      <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
           {/* Tenure and No-cost badge */}
           <div className="flex items-center gap-2">
             <span
-              className="text-[15px] font-semibold"
+              className="text-[15px] font-bold"
               style={{ color: 'var(--color-text-primary)' }}
             >
-              {plan.tenureMonths} months
+              {plan.tenureMonths} Months
             </span>
             {isNoCost && (
               <span
-                className="rounded-[var(--radius-sm)] px-2 py-0.5 text-[10px] font-semibold text-white"
-                style={{ backgroundColor: 'var(--color-success)' }}
+                className="rounded-[var(--radius-pill)] px-2.5 py-0.5 text-[10px] font-bold tracking-tight shadow-sm"
+                style={{
+                  backgroundColor: '#E6F9F2',
+                  color: 'var(--color-success)',
+                  border: '1px solid #B3F2DC',
+                }}
               >
                 No-cost EMI
               </span>
@@ -55,7 +59,7 @@ export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardP
           {/* Monthly amount */}
           <div className="mt-1.5 flex items-baseline gap-1">
             <span
-              className="text-[18px] font-bold tracking-tight"
+              className="text-[20px] font-bold tracking-tight"
               style={{ color: isSelected ? 'var(--color-primary)' : 'var(--color-text-primary)' }}
             >
               {formatPrice(plan.monthlyAmount)}
@@ -70,25 +74,40 @@ export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardP
 
           {/* Total payable and Interest rate */}
           <div
-            className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px]"
+            className="mt-2.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[12px]"
             style={{ color: 'var(--color-text-secondary)' }}
           >
             <span>Total payable: <strong className="font-semibold text-[var(--color-text-primary)]">{formatPrice(plan.totalPayable)}</strong></span>
             <span>•</span>
-            <span>{isNoCost ? '0% interest' : `${plan.interestRate}% interest`}</span>
+            <span className={isNoCost ? 'font-semibold text-[var(--color-success)]' : ''}>
+              {isNoCost ? '0% interest' : `${plan.interestRate}% interest`}
+            </span>
           </div>
         </div>
 
-        {/* Radio Indicator */}
+        {/* Radio Indicator with Checkmark for selected state (border + tint + checkmark) */}
         <div
-          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors duration-200"
+          className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-200"
           style={{
             borderColor: isSelected ? 'var(--color-primary)' : '#D1D5DB',
             backgroundColor: isSelected ? 'var(--color-primary)' : 'transparent',
           }}
           aria-hidden="true"
         >
-          {isSelected && <div className="h-2 w-2 rounded-full bg-white" />}
+          {isSelected && (
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#FFFFFF"
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          )}
         </div>
       </div>
     </div>
