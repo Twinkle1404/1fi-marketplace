@@ -1,7 +1,7 @@
 export default function Skeleton() {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3.5 sm:gap-4 md:gap-5 lg:gap-6">
-      {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5 sm:gap-4 md:gap-5 lg:gap-6">
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
         <div
           key={i}
           className="overflow-hidden rounded-[var(--radius-md)] border border-[#EEEEEE] shadow-sm"
