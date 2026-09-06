@@ -1,13 +1,10 @@
 import { Link } from 'react-router-dom';
 import type { Product } from '../../types';
 import ProductImage from '../ui/ProductImage';
+import { formatPrice } from '../../utils/formatters';
 
 interface ProductCardProps {
   product: Product;
-}
-
-function formatPrice(amount: number): string {
-  return '₹' + amount.toLocaleString('en-IN');
 }
 
 function getDisplayPrice(product: Product): number {
@@ -27,11 +24,14 @@ export default function ProductCard({ product }: ProductCardProps) {
   const variantCount = product.variants.length;
   const showEmiBadge = hasNoCostEmi(product);
 
+  const hasDiscount = Boolean(product.originalPrice && product.originalPrice > price);
+  const savings = hasDiscount && product.originalPrice ? product.originalPrice - price : 0;
+
   return (
     <Link
       to={`/product/${product.id}`}
       className="group flex flex-col overflow-hidden rounded-[var(--radius-md)] border border-gray-200 bg-[var(--color-bg)] transition-all duration-200 hover:border-[var(--color-primary-disabled)] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-      aria-label={`${product.name} by ${product.brand}, ${formatPrice(price)}`}
+      aria-label={`${product.name} by ${product.brand}, ${formatPrice(price)}${hasDiscount && product.originalPrice ? `, original price ${formatPrice(product.originalPrice)}, save ${formatPrice(savings)}` : ''}`}
     >
       {/* Image section with pinned No-cost EMI badge */}
       <div className="relative aspect-square w-full overflow-hidden bg-[var(--color-primary-light)]">
@@ -75,20 +75,45 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Price and variant metadata */}
-        <div className="mt-3 flex flex-wrap items-baseline justify-between gap-1 pt-1 border-t border-gray-100/80">
-          <span
-            className="text-[16px] sm:text-[18px] font-bold tracking-tight"
-            style={{ color: 'var(--color-text-primary)' }}
-          >
-            {formatPrice(price)}
-          </span>
+        <div className="mt-3 pt-2 border-t border-gray-100/80">
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            <span
+              className="text-[15px] sm:text-[17px] font-bold tracking-tight"
+              style={{ color: 'var(--color-text-primary)' }}
+            >
+              {formatPrice(price)}
+            </span>
 
-          <span
-            className="text-[11px] sm:text-[12px] font-medium shrink-0"
+            {hasDiscount && product.originalPrice && (
+              <span
+                className="text-[11px] sm:text-[12px] font-medium line-through"
+                style={{ color: 'var(--color-strikethrough)' }}
+              >
+                {formatPrice(product.originalPrice)}
+              </span>
+            )}
+
+            {hasDiscount && (
+              <span
+                className="inline-flex items-center rounded-[var(--radius-pill)] px-1.5 py-0.5 text-[10px] sm:text-[11px] font-bold tracking-tight leading-none"
+                style={{
+                  backgroundColor: 'var(--color-success-bg)',
+                  color: 'var(--color-success-text)',
+                }}
+              >
+                Save {formatPrice(savings)}
+              </span>
+            )}
+          </div>
+
+          <div
+            className="mt-1 flex items-center justify-between text-[11px] sm:text-[12px] font-medium"
             style={{ color: 'var(--color-text-secondary)' }}
           >
-            {variantCount} {variantCount === 1 ? 'variant' : 'variants'}
-          </span>
+            <span>
+              {variantCount} {variantCount === 1 ? 'variant' : 'variants'}
+            </span>
+          </div>
         </div>
       </div>
     </Link>

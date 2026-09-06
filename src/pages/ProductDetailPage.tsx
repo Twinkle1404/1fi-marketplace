@@ -9,10 +9,7 @@ import ConfirmationModal from '../components/marketplace/ConfirmationModal';
 import ProductDetailSkeleton from '../components/ui/ProductDetailSkeleton';
 import ProductImage from '../components/ui/ProductImage';
 import ErrorState from '../components/ui/ErrorState';
-
-function formatPrice(amount: number): string {
-  return '₹' + amount.toLocaleString('en-IN');
-}
+import { formatPrice } from '../utils/formatters';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -46,6 +43,10 @@ export default function ProductDetailPage() {
 
   // Current active price based on selected variant
   const currentPrice = selectedVariant?.price ?? product?.basePrice ?? 0;
+
+  // Pricing discount and savings calculation
+  const hasDiscount = Boolean(product?.originalPrice && product.originalPrice > currentPrice);
+  const savings = hasDiscount && product?.originalPrice ? product.originalPrice - currentPrice : 0;
 
   // Dynamically calculate EMI plans matching the selected variant's price
   const dynamicEmiPlans = useMemo<EMIPlan[]>(() => {
@@ -232,15 +233,37 @@ export default function ProductDetailPage() {
               </p>
 
               {/* Price display */}
-              <div className="mt-4 flex items-baseline gap-2.5">
+              <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
                 <span
                   className="text-3xl sm:text-4xl font-bold tracking-tight"
                   style={{ color: 'var(--color-text-primary)' }}
                 >
                   {formatPrice(currentPrice)}
                 </span>
+
+                {hasDiscount && product.originalPrice && (
+                  <span
+                    className="text-base sm:text-lg font-medium line-through"
+                    style={{ color: 'var(--color-strikethrough)' }}
+                  >
+                    {formatPrice(product.originalPrice)}
+                  </span>
+                )}
+
+                {hasDiscount && (
+                  <span
+                    className="inline-flex items-center rounded-[var(--radius-pill)] px-2.5 py-1 text-xs sm:text-sm font-bold tracking-tight"
+                    style={{
+                      backgroundColor: 'var(--color-success-bg)',
+                      color: 'var(--color-success-text)',
+                    }}
+                  >
+                    Save {formatPrice(savings)}
+                  </span>
+                )}
+
                 <span
-                  className="text-xs sm:text-sm font-medium"
+                  className="w-full sm:w-auto text-xs sm:text-sm font-medium"
                   style={{ color: 'var(--color-text-secondary)' }}
                 >
                   (inclusive of all taxes)

@@ -1,13 +1,10 @@
 import type { EMIPlan } from '../../types';
+import { formatPrice } from '../../utils/formatters';
 
 interface EMIPlanCardProps {
   plan: EMIPlan;
   isSelected: boolean;
   onSelect: () => void;
-}
-
-function formatPrice(amount: number): string {
-  return '₹' + amount.toLocaleString('en-IN');
 }
 
 export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardProps) {

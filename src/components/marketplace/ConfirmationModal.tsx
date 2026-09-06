@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { formatPrice } from '../../utils/formatters';
 
 interface ConfirmationModalProps {
   isOpen: boolean;
@@ -9,10 +10,6 @@ interface ConfirmationModalProps {
   totalPayable: number;
   onClose: () => void;
   onDone: () => void;
-}
-
-function formatPrice(amount: number): string {
-  return '₹' + amount.toLocaleString('en-IN');
 }
 
 export default function ConfirmationModal({
