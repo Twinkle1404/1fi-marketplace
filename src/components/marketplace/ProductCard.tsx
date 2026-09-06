@@ -42,18 +42,29 @@ export default function ProductCard({ product }: ProductCardProps) {
           containerClassName="w-full h-full"
         />
 
-        {/* Pinned No-cost EMI badge on top-left corner */}
-        {showEmiBadge && (
-          <span
-            className="absolute left-2.5 top-2.5 z-10 rounded-[var(--radius-pill)] px-2.5 py-0.5 text-[10px] sm:text-[11px] font-bold tracking-tight shadow-sm"
-            style={{
-              backgroundColor: 'var(--color-success-bg)',
-              color: 'var(--color-success-text)',
-            }}
-          >
-            No-cost EMI
-          </span>
-        )}
+        {/* Pinned badges on top-left corner */}
+        <div className="absolute left-2.5 top-2.5 z-10 flex flex-wrap items-center gap-1.5">
+          {product.isNew && (
+            <span
+              className="rounded-[var(--radius-pill)] px-2 py-0.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-white shadow-sm"
+              style={{ backgroundColor: 'var(--color-new-badge)' }}
+            >
+              NEW
+            </span>
+          )}
+
+          {showEmiBadge && (
+            <span
+              className="rounded-[var(--radius-pill)] px-2.5 py-0.5 text-[10px] sm:text-[11px] font-bold tracking-tight shadow-sm"
+              style={{
+                backgroundColor: 'var(--color-success-bg)',
+                color: 'var(--color-success-text)',
+              }}
+            >
+              No-cost EMI
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Product Information */}

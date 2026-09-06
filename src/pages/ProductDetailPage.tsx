@@ -192,18 +192,29 @@ export default function ProductDetailPage() {
                   containerClassName="w-full h-full"
                 />
 
-                {/* Pinned No-cost EMI badge on top-left of image */}
-                {product.emiPlans.some((p) => p.interestRate === 0) && (
-                  <span
-                    className="absolute left-3.5 top-3.5 z-10 rounded-[var(--radius-pill)] px-3 py-1 text-[11px] font-bold tracking-tight shadow-sm"
-                    style={{
-                      backgroundColor: 'var(--color-success-bg)',
-                      color: 'var(--color-success-text)',
-                    }}
-                  >
-                    No-cost EMI available
-                  </span>
-                )}
+                {/* Pinned badges on top-left of image */}
+                <div className="absolute left-3.5 top-3.5 z-10 flex flex-wrap items-center gap-1.5">
+                  {product.isNew && (
+                    <span
+                      className="rounded-[var(--radius-pill)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm"
+                      style={{ backgroundColor: 'var(--color-new-badge)' }}
+                    >
+                      NEW
+                    </span>
+                  )}
+
+                  {product.emiPlans.some((p) => p.interestRate === 0) && (
+                    <span
+                      className="rounded-[var(--radius-pill)] px-3 py-1 text-[11px] font-bold tracking-tight shadow-sm"
+                      style={{
+                        backgroundColor: 'var(--color-success-bg)',
+                        color: 'var(--color-success-text)',
+                      }}
+                    >
+                      No-cost EMI available
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
