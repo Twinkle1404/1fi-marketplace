@@ -11,6 +11,7 @@ import SectionLabel from '../components/ui/SectionLabel';
 import ProductDetailSkeleton from '../components/ui/ProductDetailSkeleton';
 import ProductImage from '../components/ui/ProductImage';
 import ErrorState from '../components/ui/ErrorState';
+import EmptyState from '../components/ui/EmptyState';
 import { formatPrice } from '../utils/formatters';
 
 export default function ProductDetailPage() {
@@ -93,7 +94,11 @@ export default function ProductDetailPage() {
   if (error) {
     return (
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-        <ErrorState onRetry={refetch} />
+        <ErrorState
+          title="Unable to load product"
+          message="We couldn't retrieve this product's details. Please check your connection and try again."
+          onRetry={refetch}
+        />
       </div>
     );
   }
@@ -101,35 +106,37 @@ export default function ProductDetailPage() {
   // Product not found state
   if (!product) {
     return (
-      <div className="flex flex-col items-center px-4 py-20 text-center">
-        <div
-          className="mb-5 flex h-16 w-16 items-center justify-center rounded-full"
-          style={{ backgroundColor: 'var(--color-primary-light)' }}
-        >
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="8" />
-            <path d="m21 21-4.3-4.3" />
-            <line x1="8" y1="11" x2="14" y2="11" />
-          </svg>
-        </div>
-        <h2
-          className="text-2xl font-bold"
-          style={{ color: 'var(--color-text-primary)' }}
-        >
-          Product not found
-        </h2>
-        <p
-          className="mt-2 max-w-sm text-sm text-[var(--color-text-secondary)] leading-relaxed"
-        >
-          The product you&apos;re looking for is no longer available.
-        </p>
-        <Link
-          to="/shop/marketplace"
-          className="mt-6 inline-flex items-center justify-center rounded-[var(--radius-pill)] px-7 py-3 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
-          style={{ backgroundColor: 'var(--color-primary)' }}
-        >
-          Back to Marketplace
-        </Link>
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        <EmptyState
+          title="Product not found"
+          description="The product you're looking for does not exist or is no longer available."
+          action={
+            <Link
+              to="/shop/marketplace"
+              className="inline-flex items-center justify-center rounded-[var(--radius-pill)] px-7 py-3 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90 active:opacity-80"
+              style={{ backgroundColor: 'var(--color-primary)' }}
+            >
+              Back to Marketplace
+            </Link>
+          }
+          icon={
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="var(--color-primary)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+              <line x1="8" y1="11" x2="14" y2="11" />
+            </svg>
+          }
+        />
       </div>
     );
   }

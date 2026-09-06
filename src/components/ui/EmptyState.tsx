@@ -9,10 +9,10 @@ interface EmptyStateProps {
 
 export default function EmptyState({ title, description, icon, action }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center py-12 text-center">
+    <div className="flex flex-col items-center py-14 text-center">
       {icon && (
         <div
-          className="mb-5 flex h-16 w-16 items-center justify-center rounded-[var(--radius-md)]"
+          className="mb-5 flex h-16 w-16 items-center justify-center rounded-full"
           style={{ backgroundColor: 'var(--color-primary-light)' }}
         >
           {icon}
@@ -20,20 +20,20 @@ export default function EmptyState({ title, description, icon, action }: EmptySt
       )}
 
       <h3
-        className="text-[18px] font-semibold"
+        className="text-[18px] font-bold"
         style={{ color: 'var(--color-text-primary)' }}
       >
         {title}
       </h3>
 
       <p
-        className="mt-2 max-w-[260px] text-[14px] leading-relaxed"
+        className="mt-1.5 max-w-sm text-[14px] leading-relaxed"
         style={{ color: 'var(--color-text-secondary)' }}
       >
         {description}
       </p>
 
-      {action && <div className="mt-5">{action}</div>}
+      {action && <div className="mt-6">{action}</div>}
     </div>
   );
 }

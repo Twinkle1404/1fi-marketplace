@@ -90,15 +90,49 @@ export default function MarketplaceHome() {
 
         {!loading && error && <ErrorState onRetry={refetch} />}
 
-        {!loading && !error && filtered.length === 0 && (
+        {!loading && !error && products.length === 0 && (
+          <EmptyState
+            title="No products available"
+            description="We are currently stocking new products. Please check back soon or try again."
+            action={
+              <button
+                type="button"
+                onClick={refetch}
+                className="rounded-[var(--radius-pill)] px-7 py-2.5 text-[14px] font-bold text-white shadow-sm transition-opacity hover:opacity-90 active:opacity-80"
+                style={{ backgroundColor: 'var(--color-primary)' }}
+              >
+                Refresh
+              </button>
+            }
+            icon={
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--color-primary)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+                <path d="M8 11h6" />
+              </svg>
+            }
+          />
+        )}
+
+        {!loading && !error && products.length > 0 && filtered.length === 0 && (
           <EmptyState
             title="No products found"
-            description="Try searching with a different product or brand name."
+            description={`No products match "${search}". Try searching with a different product or brand name.`}
             action={
               <button
                 type="button"
                 onClick={() => setSearch('')}
-                className="rounded-[var(--radius-pill)] px-6 py-2.5 text-[13px] font-bold text-white shadow-sm transition-opacity hover:opacity-90"
+                className="rounded-[var(--radius-pill)] px-6 py-2.5 text-[13px] font-bold text-white shadow-sm transition-opacity hover:opacity-90 active:opacity-80"
                 style={{ backgroundColor: 'var(--color-primary)' }}
               >
                 Clear search
@@ -118,7 +152,7 @@ export default function MarketplaceHome() {
               >
                 <circle cx="11" cy="11" r="8" />
                 <path d="m21 21-4.3-4.3" />
-                <path d="M8 11h6" />
+                <line x1="8" y1="11" x2="14" y2="11" />
               </svg>
             }
           />

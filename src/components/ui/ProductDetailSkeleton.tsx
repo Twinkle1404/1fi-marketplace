@@ -33,6 +33,21 @@ export default function ProductDetailSkeleton() {
 
           <hr className="border-gray-200/80" />
 
+          {/* Finish / Color Selector Skeleton */}
+          <div>
+            <div className="mb-3 h-4 w-28 animate-pulse rounded bg-gray-200" />
+            <div className="flex flex-wrap gap-3">
+              {[1, 2, 3, 4].map((i) => (
+                <div
+                  key={i}
+                  className="h-10 w-10 animate-pulse rounded-[var(--radius-pill)] bg-gray-200"
+                />
+              ))}
+            </div>
+          </div>
+
+          <hr className="border-gray-200/80" />
+
           {/* Variant Selector Skeleton */}
           <div>
             <div className="mb-3 h-4 w-32 animate-pulse rounded bg-gray-200" />
@@ -54,6 +69,11 @@ export default function ProductDetailSkeleton() {
                 className="h-24 w-full animate-pulse rounded-[var(--radius-md)] border border-gray-200 bg-[var(--color-bg)]"
               />
             ))}
+          </div>
+
+          {/* Desktop CTA Button Skeleton */}
+          <div className="hidden lg:block pt-4">
+            <div className="h-12 w-full animate-pulse rounded-[var(--radius-pill)] bg-gray-200" />
           </div>
         </div>
       </div>
