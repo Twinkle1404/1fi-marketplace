@@ -204,4 +204,110 @@ export const mockProducts: Product[] = [
       { id: 'lg-emi-12', tenureMonths: 12, monthlyAmount: 3508, interestRate: 8, totalPayable: 42090 },
     ],
   },
+  {
+    id: 'canon-eos-r10',
+    name: 'Canon EOS R10',
+    brand: 'Canon',
+    imageUrl: '/products/canon-eos-r10.jpg',
+    basePrice: 80995,
+    originalPrice: 92995,
+    description:
+      'Compact and capable APS-C mirrorless camera featuring 24.2MP CMOS sensor, 4K60p video, high-speed 23 fps burst shooting, and Dual Pixel CMOS AF II.',
+    variants: [
+      { id: 'canon-r10-body', label: 'Body Only', price: 80995, inStock: true },
+      { id: 'canon-r10-18-45', label: 'RF-S 18-45mm IS STM Kit', price: 92995, inStock: true },
+      { id: 'canon-r10-18-150', label: 'RF-S 18-150mm IS STM Kit', price: 114995, inStock: true },
+    ],
+    emiPlans: [
+      { id: 'canon-emi-3', tenureMonths: 3, monthlyAmount: 26998, interestRate: 0, totalPayable: 80995, cashback: 2000 },
+      { id: 'canon-emi-6', tenureMonths: 6, monthlyAmount: 13904, interestRate: 3, totalPayable: 83424 },
+      { id: 'canon-emi-12', tenureMonths: 12, monthlyAmount: 7290, interestRate: 8, totalPayable: 87480 },
+    ],
+  },
+  {
+    id: 'dell-xps-13',
+    name: 'Dell XPS 13',
+    brand: 'Dell',
+    imageUrl: '/products/dell-xps-13.png',
+    basePrice: 134990,
+    originalPrice: 149990,
+    description:
+      'Ultra-portable flagship laptop crafted from machined aluminum with Intel Core Ultra 7, FHD+ InfinityEdge display, and zero-lattice keyboard.',
+    colorVariants: [
+      { label: 'Platinum', hex: '#E5E5E5' },
+      { label: 'Graphite', hex: '#3E3E3E' },
+    ],
+    variants: [
+      { id: 'xps13-16-512', label: '16 GB / 512 GB', price: 134990, inStock: true },
+      { id: 'xps13-32-1tb', label: '32 GB / 1 TB', price: 159990, inStock: true },
+    ],
+    emiPlans: [
+      { id: 'xps13-emi-3', tenureMonths: 3, monthlyAmount: 44997, interestRate: 0, totalPayable: 134990 },
+      { id: 'xps13-emi-6', tenureMonths: 6, monthlyAmount: 23173, interestRate: 3, totalPayable: 139038, cashback: 3000 },
+      { id: 'xps13-emi-12', tenureMonths: 12, monthlyAmount: 12149, interestRate: 8, totalPayable: 145788 },
+    ],
+  },
+  {
+    id: 'playstation-5',
+    name: 'PlayStation 5 Slim',
+    brand: 'Sony',
+    imageUrl: '/products/playstation-5.jpg',
+    basePrice: 44990,
+    originalPrice: 49990,
+    isNew: true,
+    description:
+      'Slimmer design with 1TB SSD storage, 4K ray tracing, ultra-fast loading with custom I/O, and immersive DualSense wireless controller.',
+    variants: [
+      { id: 'ps5-digital', label: 'Digital Edition', price: 44990, inStock: true },
+      { id: 'ps5-disc', label: 'Disc Edition', price: 54990, inStock: true },
+    ],
+    emiPlans: [
+      { id: 'ps5-emi-3', tenureMonths: 3, monthlyAmount: 14997, interestRate: 0, totalPayable: 44990, cashback: 1500 },
+      { id: 'ps5-emi-6', tenureMonths: 6, monthlyAmount: 7723, interestRate: 3, totalPayable: 46338 },
+      { id: 'ps5-emi-12', tenureMonths: 12, monthlyAmount: 4049, interestRate: 8, totalPayable: 48588 },
+    ],
+  },
+  {
+    id: 'airpods-pro-2',
+    name: 'AirPods Pro (2nd Gen)',
+    brand: 'Apple',
+    imageUrl: '/products/airpods-pro-2.jpg',
+    basePrice: 24900,
+    isNew: true,
+    description:
+      'Pro-level Active Noise Cancellation, Adaptive Audio, Transparency mode, Personalized Spatial Audio with dynamic head tracking, and USB-C MagSafe case.',
+    variants: [
+      { id: 'app2-usbc', label: 'USB-C MagSafe Case', price: 24900, inStock: true },
+      { id: 'app2-care', label: 'With AppleCare+', price: 28800, inStock: true },
+    ],
+    emiPlans: [
+      { id: 'app2-emi-3', tenureMonths: 3, monthlyAmount: 8300, interestRate: 0, totalPayable: 24900, cashback: 1000 },
+      { id: 'app2-emi-6', tenureMonths: 6, monthlyAmount: 4275, interestRate: 3, totalPayable: 25650 },
+      { id: 'app2-emi-12', tenureMonths: 12, monthlyAmount: 2241, interestRate: 8, totalPayable: 26892 },
+    ],
+  },
+  {
+    id: 'apple-watch-series-10',
+    name: 'Apple Watch Series 10',
+    brand: 'Apple',
+    imageUrl: '/products/apple-watch-series-8.jpg',
+    basePrice: 46900,
+    description:
+      'Our thinnest watch ever with our biggest display. Advanced health sensors for sleep apnea detection, ECG, and depth gauge for water sports.',
+    colorVariants: [
+      { label: 'Jet Black', hex: '#1C1C1E' },
+      { label: 'Rose Gold', hex: '#E7C5BA' },
+      { label: 'Silver', hex: '#E3E4E5' },
+    ],
+    variants: [
+      { id: 'aws10-42-gps', label: '42 mm GPS', price: 46900, inStock: true },
+      { id: 'aws10-46-gps', label: '46 mm GPS', price: 49900, inStock: true },
+      { id: 'aws10-46-cel', label: '46 mm GPS + Cellular', price: 59900, inStock: true },
+    ],
+    emiPlans: [
+      { id: 'aws10-emi-3', tenureMonths: 3, monthlyAmount: 15633, interestRate: 0, totalPayable: 46900 },
+      { id: 'aws10-emi-6', tenureMonths: 6, monthlyAmount: 8051, interestRate: 3, totalPayable: 48306, cashback: 1500 },
+      { id: 'aws10-emi-12', tenureMonths: 12, monthlyAmount: 4221, interestRate: 8, totalPayable: 50652 },
+    ],
+  },
 ];

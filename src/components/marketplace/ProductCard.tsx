@@ -19,10 +19,17 @@ function hasNoCostEmi(product: Product): boolean {
   return product.emiPlans.some((plan) => plan.interestRate === 0);
 }
 
+function getLowestMonthlyEmi(product: Product): number | null {
+  if (!product.emiPlans || product.emiPlans.length === 0) return null;
+  return Math.min(...product.emiPlans.map((plan) => plan.monthlyAmount));
+}
+
 export default function ProductCard({ product }: ProductCardProps) {
   const price = getDisplayPrice(product);
   const variantCount = product.variants.length;
   const showEmiBadge = hasNoCostEmi(product);
+  const lowestMonthlyEmi = getLowestMonthlyEmi(product);
+  const variantSubtitle = product.variants[0]?.label;
 
   const hasDiscount = Boolean(product.originalPrice && product.originalPrice > price);
   const savings = hasDiscount && product.originalPrice ? product.originalPrice - price : 0;
@@ -83,6 +90,15 @@ export default function ProductCard({ product }: ProductCardProps) {
           >
             {product.name}
           </h3>
+
+          {variantSubtitle && (
+            <p
+              className="mt-0.5 text-[11px] sm:text-[12px] font-medium truncate"
+              style={{ color: 'var(--color-text-secondary)' }}
+            >
+              {variantSubtitle}
+            </p>
+          )}
         </div>
 
         {/* Price and variant metadata */}
@@ -117,8 +133,22 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
 
+          {lowestMonthlyEmi !== null && (
+            <div className="mt-1.5 flex items-center">
+              <span
+                className="inline-flex items-center rounded-[var(--radius-pill)] px-2 py-0.5 text-[10px] sm:text-[11px] font-semibold tracking-tight"
+                style={{
+                  backgroundColor: 'var(--color-success-bg)',
+                  color: 'var(--color-success-text)',
+                }}
+              >
+                From {formatPrice(lowestMonthlyEmi)}/mo
+              </span>
+            </div>
+          )}
+
           <div
-            className="mt-1 flex items-center justify-between gap-2 text-[11px] sm:text-[12px] font-medium"
+            className="mt-2 flex items-center justify-between gap-2 text-[11px] sm:text-[12px] font-medium"
             style={{ color: 'var(--color-text-secondary)' }}
           >
             <span>
