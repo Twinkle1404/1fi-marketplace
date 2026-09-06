@@ -11,8 +11,8 @@ export default function MarketplaceHome() {
   const [search, setSearch] = useState('');
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return products;
-    const q = search.toLowerCase();
+    const q = search.trim().toLowerCase();
+    if (!q) return products;
     return products.filter(
       (p) =>
         p.name.toLowerCase().includes(q) ||

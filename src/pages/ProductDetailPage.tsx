@@ -395,9 +395,14 @@ export default function ProductDetailPage() {
           isOpen={isConfirmationOpen}
           productName={product.name}
           variantLabel={selectedVariant.label}
+          colorLabel={selectedColor?.label}
+          colorHex={selectedColor?.hex}
           tenureMonths={selectedPlan.tenureMonths}
           monthlyAmount={selectedPlan.monthlyAmount}
+          productPrice={currentPrice}
           totalPayable={selectedPlan.totalPayable}
+          interestRate={selectedPlan.interestRate}
+          cashback={selectedPlan.cashback}
           onClose={() => setIsConfirmationOpen(false)}
           onDone={() => {
             setIsConfirmationOpen(false);

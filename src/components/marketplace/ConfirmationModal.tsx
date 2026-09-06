@@ -5,9 +5,14 @@ interface ConfirmationModalProps {
   isOpen: boolean;
   productName: string;
   variantLabel: string;
+  colorLabel?: string;
+  colorHex?: string;
   tenureMonths: number;
   monthlyAmount: number;
+  productPrice: number;
   totalPayable: number;
+  interestRate?: number;
+  cashback?: number;
   onClose: () => void;
   onDone: () => void;
 }
@@ -16,9 +21,14 @@ export default function ConfirmationModal({
   isOpen,
   productName,
   variantLabel,
+  colorLabel,
+  colorHex,
   tenureMonths,
   monthlyAmount,
+  productPrice,
   totalPayable,
+  interestRate,
+  cashback,
   onClose,
   onDone,
 }: ConfirmationModalProps) {
@@ -60,7 +70,7 @@ export default function ConfirmationModal({
 
       {/* Modal / Sheet Container */}
       <div
-        className="relative z-10 w-full max-w-[430px] rounded-t-[var(--radius-lg)] sm:rounded-[var(--radius-lg)] bg-[var(--color-bg)] p-6 shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-300"
+        className="relative z-10 w-full max-w-[440px] rounded-t-[var(--radius-lg)] sm:rounded-[var(--radius-lg)] bg-[var(--color-bg)] p-6 shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-300"
         style={{
           backgroundColor: 'var(--color-bg)',
         }}
@@ -81,12 +91,12 @@ export default function ConfirmationModal({
         {/* Success Icon */}
         <div className="flex flex-col items-center text-center">
           <div
-            className="mb-4 flex h-16 w-16 items-center justify-center rounded-full"
+            className="mb-3.5 flex h-14 w-14 items-center justify-center rounded-full shadow-sm"
             style={{ backgroundColor: 'var(--color-primary-light)' }}
           >
             <svg
-              width="32"
-              height="32"
+              width="28"
+              height="28"
               viewBox="0 0 24 24"
               fill="none"
               stroke="var(--color-primary)"
@@ -104,7 +114,7 @@ export default function ConfirmationModal({
             className="text-[20px] font-bold tracking-tight"
             style={{ color: 'var(--color-text-primary)' }}
           >
-            Your plan is confirmed
+            Your plan is confirmed!
           </h3>
 
           <p
@@ -117,25 +127,28 @@ export default function ConfirmationModal({
 
         {/* Summary Card */}
         <div
-          className="mt-5 rounded-[var(--radius-md)] p-4"
+          className="mt-5 rounded-[var(--radius-md)] p-4 space-y-3"
           style={{ backgroundColor: 'var(--color-bg-subtle)' }}
         >
+          {/* Product Header */}
           <div className="border-b border-gray-200/80 pb-3">
-            <span
-              className="text-[11px] font-semibold uppercase tracking-wider"
-              style={{ color: 'var(--color-text-secondary)' }}
-            >
-              Product
-            </span>
-            <div className="mt-0.5 flex items-baseline justify-between gap-2">
-              <h4
-                className="text-[15px] font-semibold"
-                style={{ color: 'var(--color-text-primary)' }}
-              >
-                {productName}
-              </h4>
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <span
+                  className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider"
+                  style={{ color: 'var(--color-text-secondary)' }}
+                >
+                  Selected Product
+                </span>
+                <h4
+                  className="mt-0.5 text-[15px] font-bold leading-snug"
+                  style={{ color: 'var(--color-text-primary)' }}
+                >
+                  {productName}
+                </h4>
+              </div>
               <span
-                className="shrink-0 rounded-[var(--radius-sm)] px-2 py-0.5 text-[11px] font-medium"
+                className="shrink-0 rounded-[var(--radius-sm)] px-2 py-0.5 text-[11px] font-semibold tracking-tight"
                 style={{
                   backgroundColor: 'var(--color-primary-light)',
                   color: 'var(--color-primary)',
@@ -144,9 +157,35 @@ export default function ConfirmationModal({
                 {variantLabel}
               </span>
             </div>
+
+            {/* Color / Finish (when applicable) */}
+            {colorLabel && (
+              <div className="mt-2 flex items-center justify-between text-[12px]">
+                <span style={{ color: 'var(--color-text-secondary)' }}>Color / Finish</span>
+                <span className="inline-flex items-center gap-1.5 font-medium" style={{ color: 'var(--color-text-primary)' }}>
+                  {colorHex && (
+                    <span
+                      className="inline-block h-3 w-3 rounded-full border border-black/15 shadow-2xs"
+                      style={{ backgroundColor: colorHex }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  {colorLabel}
+                </span>
+              </div>
+            )}
+
+            {/* Total / Current Product Price */}
+            <div className="mt-1.5 flex items-center justify-between text-[12px]">
+              <span style={{ color: 'var(--color-text-secondary)' }}>Product Price</span>
+              <span className="font-semibold" style={{ color: 'var(--color-text-primary)' }}>
+                {formatPrice(productPrice)}
+              </span>
+            </div>
           </div>
 
-          <div className="mt-3 grid grid-cols-2 gap-3">
+          {/* Selected EMI Plan & Monthly Amount */}
+          <div className="grid grid-cols-2 gap-3 pt-0.5">
             <div>
               <span
                 className="text-[11px] font-medium"
@@ -166,18 +205,42 @@ export default function ConfirmationModal({
                 className="text-[11px] font-medium"
                 style={{ color: 'var(--color-text-secondary)' }}
               >
-                Tenure
+                Selected Plan
               </span>
               <p
-                className="text-[16px] font-bold"
+                className="text-[14px] font-bold"
                 style={{ color: 'var(--color-text-primary)' }}
               >
-                {tenureMonths} months
+                {tenureMonths} Months
               </p>
+              {interestRate !== undefined && (
+                <p className="text-[10px] font-medium text-[var(--color-text-secondary)]">
+                  {interestRate === 0 ? 'No-cost EMI (0%)' : `${interestRate}% interest`}
+                </p>
+              )}
             </div>
           </div>
 
-          <div className="mt-3 border-t border-gray-200/80 pt-3 flex items-center justify-between">
+          {/* Cashback Amount (when applicable) */}
+          {cashback !== undefined && cashback > 0 && (
+            <div
+              className="flex items-center justify-between rounded-[var(--radius-sm)] px-2.5 py-1.5"
+              style={{
+                backgroundColor: 'var(--color-success-bg)',
+                color: 'var(--color-success-text)',
+              }}
+            >
+              <span className="text-[11px] sm:text-[12px] font-semibold">
+                Cashback applied
+              </span>
+              <span className="text-[12px] sm:text-[13px] font-bold">
+                +{formatPrice(cashback)}
+              </span>
+            </div>
+          )}
+
+          {/* Total Payable */}
+          <div className="border-t border-gray-200/80 pt-3 flex items-center justify-between">
             <span
               className="text-[13px] font-medium"
               style={{ color: 'var(--color-text-secondary)' }}
@@ -193,15 +256,23 @@ export default function ConfirmationModal({
           </div>
         </div>
 
-        {/* Action button */}
-        <div className="mt-6">
+        {/* Action buttons */}
+        <div className="mt-6 flex flex-col gap-2">
           <button
             type="button"
             onClick={onDone}
-            className="w-full rounded-[var(--radius-pill)] py-3.5 text-[15px] font-semibold text-white shadow-md transition-opacity hover:opacity-90 active:opacity-80"
+            className="w-full rounded-[var(--radius-pill)] py-3 text-[14px] font-bold text-white shadow-md transition-opacity hover:opacity-90 active:opacity-80"
             style={{ backgroundColor: 'var(--color-primary)' }}
           >
-            Done
+            Return to Marketplace
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-full rounded-[var(--radius-pill)] py-2 text-[13px] font-semibold transition-colors hover:bg-gray-100"
+            style={{ color: 'var(--color-text-secondary)' }}
+          >
+            Back to Product
           </button>
         </div>
       </div>
