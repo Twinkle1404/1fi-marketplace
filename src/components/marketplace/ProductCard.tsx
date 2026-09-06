@@ -118,12 +118,35 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
 
           <div
-            className="mt-1 flex items-center justify-between text-[11px] sm:text-[12px] font-medium"
+            className="mt-1 flex items-center justify-between gap-2 text-[11px] sm:text-[12px] font-medium"
             style={{ color: 'var(--color-text-secondary)' }}
           >
             <span>
               {variantCount} {variantCount === 1 ? 'variant' : 'variants'}
             </span>
+
+            {product.colorVariants && product.colorVariants.length > 1 && (
+              <div
+                className="flex items-center gap-1 shrink-0"
+                title={`${product.colorVariants.length} colors available: ${product.colorVariants.map((c) => c.label).join(', ')}`}
+                aria-label={`${product.colorVariants.length} colors available`}
+              >
+                <div className="flex items-center gap-1">
+                  {product.colorVariants.slice(0, 4).map((c) => (
+                    <span
+                      key={c.label}
+                      className="inline-block h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-[var(--radius-pill)] border border-black/15 shadow-2xs"
+                      style={{ backgroundColor: c.hex }}
+                    />
+                  ))}
+                </div>
+                {product.colorVariants.length > 4 && (
+                  <span className="text-[10px] leading-none text-[var(--color-text-secondary)]">
+                    +{product.colorVariants.length - 4}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

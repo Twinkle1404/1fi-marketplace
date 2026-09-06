@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useProduct } from '../hooks/useProduct';
-import type { EMIPlan, ProductVariant } from '../types';
+import type { ColorVariant, EMIPlan, ProductVariant } from '../types';
 import VariantSelector from '../components/marketplace/VariantSelector';
+import ColorSelector from '../components/marketplace/ColorSelector';
 import EMIPlanList from '../components/marketplace/EMIPlanList';
 import CTAButton from '../components/marketplace/CTAButton';
 import ConfirmationModal from '../components/marketplace/ConfirmationModal';
@@ -17,10 +18,11 @@ export default function ProductDetailPage() {
   const { product, loading, error, refetch } = useProduct(id);
 
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
+  const [selectedColor, setSelectedColor] = useState<ColorVariant | null>(null);
   const [selectedPlanId, setSelectedPlanId] = useState<string>('');
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
-  // Initialize selected variant and plan when product loads
+  // Initialize selected variant, color, and plan when product loads
   useEffect(() => {
     if (product) {
       // Prefer first in-stock variant
@@ -29,6 +31,13 @@ export default function ProductDetailPage() {
         setSelectedVariant(firstInStock);
       } else if (product.variants.length > 0) {
         setSelectedVariant(product.variants[0]);
+      }
+
+      // Prefer first color variant if available
+      if (product.colorVariants && product.colorVariants.length > 0) {
+        setSelectedColor(product.colorVariants[0]);
+      } else {
+        setSelectedColor(null);
       }
 
       // Prefer first 0% EMI plan, otherwise first plan
@@ -187,7 +196,7 @@ export default function ProductDetailPage() {
             <div className="sticky top-20 rounded-[var(--radius-lg)] border border-gray-200 bg-[var(--color-bg)] p-4 sm:p-6 shadow-sm">
               <div className="relative aspect-square w-full overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-primary-light)]">
                 <ProductImage
-                  src={product.imageUrl}
+                  src={selectedColor?.imageUrl || product.imageUrl}
                   alt={`${product.brand} ${product.name}`}
                   containerClassName="w-full h-full"
                 />
@@ -283,6 +292,46 @@ export default function ProductDetailPage() {
             </div>
 
             <hr className="border-gray-200/80" />
+
+            {/* ── Color / Finish Selector Section ── */}
+            {product.colorVariants && product.colorVariants.length > 0 && (
+              <>
+                <section aria-labelledby="color-heading">
+                  <div className="mb-3 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="h-3.5 w-1 rounded-full"
+                        style={{ backgroundColor: 'var(--color-primary)' }}
+                        aria-hidden="true"
+                      />
+                      <h2
+                        id="color-heading"
+                        className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.05em]"
+                        style={{ color: 'var(--color-text-secondary)' }}
+                      >
+                        Select Finish
+                      </h2>
+                    </div>
+                    {selectedColor && (
+                      <span
+                        className="text-[12px] sm:text-[13px] font-bold"
+                        style={{ color: 'var(--color-primary)' }}
+                      >
+                        {selectedColor.label}
+                      </span>
+                    )}
+                  </div>
+
+                  <ColorSelector
+                    colors={product.colorVariants}
+                    selectedColor={selectedColor}
+                    onSelect={(color) => setSelectedColor(color)}
+                  />
+                </section>
+
+                <hr className="border-gray-200/80" />
+              </>
+            )}
 
             {/* ── Variant Selector Section ── */}
             <section aria-labelledby="variant-heading">

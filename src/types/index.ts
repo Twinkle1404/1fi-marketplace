@@ -1,6 +1,7 @@
 export interface ColorVariant {
   label: string;
   hex: string;
+  imageUrl?: string;
 }
 
 export interface EMIPlan {
