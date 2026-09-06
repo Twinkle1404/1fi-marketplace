@@ -4,6 +4,7 @@ import ProductGrid from '../components/marketplace/ProductGrid';
 import Skeleton from '../components/ui/Skeleton';
 import ErrorState from '../components/ui/ErrorState';
 import EmptyState from '../components/ui/EmptyState';
+import SectionLabel from '../components/ui/SectionLabel';
 
 export default function MarketplaceHome() {
   const { products, loading, error, refetch } = useProducts();
@@ -24,19 +25,11 @@ export default function MarketplaceHome() {
       {/* ── Header with Section Marker & Responsive Search ── */}
       <div className="mb-6 sm:mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1.5">
-            <span
-              className="h-3.5 w-1 rounded-full"
-              style={{ backgroundColor: 'var(--color-primary)' }}
-              aria-hidden="true"
-            />
-            <span
-              className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.05em]"
-              style={{ color: 'var(--color-text-secondary)' }}
-            >
-              Curated Electronics &amp; Appliances
-            </span>
-          </div>
+          <SectionLabel
+            as="span"
+            title="Curated Electronics & Appliances"
+            className="mb-1.5"
+          />
 
           <h2
             className="text-2xl sm:text-3xl font-bold tracking-tight"

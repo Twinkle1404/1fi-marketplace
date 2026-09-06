@@ -7,6 +7,7 @@ import ColorSelector from '../components/marketplace/ColorSelector';
 import EMIPlanList from '../components/marketplace/EMIPlanList';
 import CTAButton from '../components/marketplace/CTAButton';
 import ConfirmationModal from '../components/marketplace/ConfirmationModal';
+import SectionLabel from '../components/ui/SectionLabel';
 import ProductDetailSkeleton from '../components/ui/ProductDetailSkeleton';
 import ProductImage from '../components/ui/ProductImage';
 import ErrorState from '../components/ui/ErrorState';
@@ -297,30 +298,12 @@ export default function ProductDetailPage() {
             {product.colorVariants && product.colorVariants.length > 0 && (
               <>
                 <section aria-labelledby="color-heading">
-                  <div className="mb-3 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className="h-3.5 w-1 rounded-full"
-                        style={{ backgroundColor: 'var(--color-primary)' }}
-                        aria-hidden="true"
-                      />
-                      <h2
-                        id="color-heading"
-                        className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.05em]"
-                        style={{ color: 'var(--color-text-secondary)' }}
-                      >
-                        Select Finish
-                      </h2>
-                    </div>
-                    {selectedColor && (
-                      <span
-                        className="text-[12px] sm:text-[13px] font-bold"
-                        style={{ color: 'var(--color-primary)' }}
-                      >
-                        {selectedColor.label}
-                      </span>
-                    )}
-                  </div>
+                  <SectionLabel
+                    id="color-heading"
+                    title="Select Finish"
+                    activeValue={selectedColor?.label}
+                    className="mb-3"
+                  />
 
                   <ColorSelector
                     colors={product.colorVariants}
@@ -335,30 +318,12 @@ export default function ProductDetailPage() {
 
             {/* ── Variant Selector Section ── */}
             <section aria-labelledby="variant-heading">
-              <div className="mb-3 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span
-                    className="h-3.5 w-1 rounded-full"
-                    style={{ backgroundColor: 'var(--color-primary)' }}
-                    aria-hidden="true"
-                  />
-                  <h2
-                    id="variant-heading"
-                    className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.05em]"
-                    style={{ color: 'var(--color-text-secondary)' }}
-                  >
-                    Select Variant
-                  </h2>
-                </div>
-                {selectedVariant && (
-                  <span
-                    className="text-[12px] sm:text-[13px] font-bold"
-                    style={{ color: 'var(--color-primary)' }}
-                  >
-                    {selectedVariant.label}
-                  </span>
-                )}
-              </div>
+              <SectionLabel
+                id="variant-heading"
+                title="Select Variant"
+                activeValue={selectedVariant?.label}
+                className="mb-3"
+              />
 
               <VariantSelector
                 variants={product.variants}
@@ -377,30 +342,12 @@ export default function ProductDetailPage() {
 
             {/* ── EMI Plans Section ── */}
             <section aria-labelledby="emi-heading">
-              <div className="mb-3 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span
-                    className="h-3.5 w-1 rounded-full"
-                    style={{ backgroundColor: 'var(--color-primary)' }}
-                    aria-hidden="true"
-                  />
-                  <h2
-                    id="emi-heading"
-                    className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.05em]"
-                    style={{ color: 'var(--color-text-secondary)' }}
-                  >
-                    Choose EMI Plan
-                  </h2>
-                </div>
-                {selectedPlan && (
-                  <span
-                    className="text-[12px] sm:text-[13px] font-bold"
-                    style={{ color: 'var(--color-primary)' }}
-                  >
-                    {selectedPlan.tenureMonths} Months
-                  </span>
-                )}
-              </div>
+              <SectionLabel
+                id="emi-heading"
+                title="Choose EMI Plan"
+                activeValue={selectedPlan ? `${selectedPlan.tenureMonths} Months` : null}
+                className="mb-3"
+              />
 
               <EMIPlanList
                 plans={dynamicEmiPlans}
