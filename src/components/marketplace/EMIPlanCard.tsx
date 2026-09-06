@@ -31,8 +31,8 @@ export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardP
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
-          {/* Tenure and No-cost badge */}
-          <div className="flex items-center gap-2">
+          {/* Tenure and Badges (No-cost EMI, Cashback) */}
+          <div className="flex flex-wrap items-center gap-2">
             <span
               className="text-[15px] font-bold"
               style={{ color: 'var(--color-text-primary)' }}
@@ -48,6 +48,17 @@ export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardP
                 }}
               >
                 No-cost EMI
+              </span>
+            )}
+            {Boolean(plan.cashback && plan.cashback > 0) && (
+              <span
+                className="rounded-[var(--radius-pill)] px-2.5 py-0.5 text-[10px] font-bold tracking-tight shadow-sm"
+                style={{
+                  backgroundColor: 'var(--color-success-bg)',
+                  color: 'var(--color-success-text)',
+                }}
+              >
+                {formatPrice(plan.cashback!)} cashback
               </span>
             )}
           </div>
