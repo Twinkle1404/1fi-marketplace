@@ -17,6 +17,8 @@ function getDisplayPrice(product: Product): number {
 
 function getLowestMonthlyEmi(product: Product): number | null {
   if (!product.emiPlans || product.emiPlans.length === 0) return null;
+  const plan12 = product.emiPlans.find((p) => p.tenureMonths === 12);
+  if (plan12) return plan12.monthlyAmount;
   return Math.min(...product.emiPlans.map((plan) => plan.monthlyAmount));
 }
 
