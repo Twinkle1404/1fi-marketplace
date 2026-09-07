@@ -15,7 +15,7 @@ export default function ColorSelector({
     <div
       role="radiogroup"
       aria-label="Color Variants"
-      className="flex flex-wrap items-center gap-3"
+      className="swatches"
     >
       {colors.map((color) => {
         const isSelected = selectedColor?.label === color.label;
@@ -28,19 +28,10 @@ export default function ColorSelector({
             aria-label={`${color.label}${isSelected ? ' (Selected)' : ''}`}
             title={color.label}
             onClick={() => onSelect(color)}
-            className={`group relative flex h-7 w-7 items-center justify-center rounded-full transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${
-              isSelected
-                ? 'ring-2 ring-offset-2 ring-[var(--color-primary)]'
-                : 'hover:ring-1 hover:ring-gray-300'
-            }`}
+            className={`color-swatch ${isSelected ? 'selected' : ''}`}
+            style={{ backgroundColor: color.hex }}
           >
-            <span
-              className="h-5 w-5 rounded-full border border-black/15 shadow-2xs"
-              style={{ backgroundColor: color.hex }}
-            />
-            {isSelected && (
-              <span className="sr-only"> (Selected)</span>
-            )}
+            {isSelected && <span className="sr-only"> (Selected)</span>}
           </button>
         );
       })}

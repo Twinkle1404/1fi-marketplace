@@ -59,7 +59,7 @@ export default function ConfirmationModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirmation-title"
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm sm:items-center sm:p-4"
+      className="fixed inset-0 z-[9999] flex items-end justify-center bg-black/60 backdrop-blur-sm sm:items-center sm:p-4"
     >
       {/* Backdrop click */}
       <div

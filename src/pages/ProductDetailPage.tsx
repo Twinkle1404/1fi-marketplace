@@ -158,153 +158,128 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <div className="w-full pb-32">
-      {/* ── Top Bar with Back Navigation ── */}
-      <div className="w-full border-b border-gray-100 bg-[var(--color-bg)]/95 backdrop-blur-md sticky top-0 z-30 px-4 py-3 flex items-center justify-between">
-        <button
-          type="button"
-          onClick={handleBack}
-          aria-label="Back to Marketplace"
-          className="group inline-flex items-center gap-1.5 text-xs font-bold transition-colors hover:text-[var(--color-primary)]"
-          style={{ color: 'var(--color-text-primary)' }}
+    <div id="detailView">
+      {/* ── Back Navigation ── */}
+      <button
+        type="button"
+        onClick={handleBack}
+        aria-label="Back to Marketplace"
+        className="back-btn"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
         >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-            className="transition-transform group-hover:-translate-x-0.5"
-          >
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-          <span>Back</span>
-        </button>
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Back
+      </button>
 
-        <span
-          className="text-[11px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider"
-        >
-          1Fi Marketplace
-        </span>
+      {/* 1. Media Card */}
+      <div className="media-card">
+        {product.isNew && (
+          <span className="badge-new">
+            NEW
+          </span>
+        )}
+        <div className="media-panel">
+          <ProductImage
+            src={selectedColor?.imageUrl || product.imageUrl}
+            alt={`${product.brand} ${product.name}`}
+            className="object-contain max-h-full max-w-full p-4"
+            containerClassName="w-full h-full flex items-center justify-center"
+          />
+        </div>
       </div>
 
-      {/* ── Centered Vertical Flow Inside App Shell ── */}
-      <div className="w-full px-4 pt-4 flex flex-col space-y-4">
-        {/* 1. Product Image Card */}
-        <div className="w-full rounded-[24px] border border-gray-100 bg-white p-4 shadow-xs">
-          <div className="relative aspect-[4/3] w-full max-w-[280px] mx-auto overflow-hidden rounded-[16px] bg-white flex items-center justify-center">
-            <ProductImage
-              src={selectedColor?.imageUrl || product.imageUrl}
-              alt={`${product.brand} ${product.name}`}
-              className="object-contain max-h-full max-w-full"
-              containerClassName="w-full h-full flex items-center justify-center"
-            />
-
-            {/* Badges */}
-            <div className="absolute left-2.5 top-2.5 z-10 flex flex-wrap items-center gap-1">
-              {product.isNew && (
-                <span className="rounded-md bg-[#D62E20] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-xs">
-                  NEW
-                </span>
-              )}
-            </div>
-          </div>
+      {/* 2. Color (Finish) */}
+      {product.colorVariants && product.colorVariants.length > 0 && (
+        <div className="option-block">
+          <div className="option-label">COLOR</div>
+          <ColorSelector
+            colors={product.colorVariants}
+            selectedColor={selectedColor}
+            onSelect={(color) => setSelectedColor(color)}
+          />
         </div>
+      )}
 
-        {/* 2. Color (Finish) */}
+      {/* 3. Storage / Variant */}
+      <div className="option-block">
+        <div className="option-label">
+          {product.colorVariants && product.colorVariants.length > 0 ? 'STORAGE' : 'VARIANT'}
+        </div>
+        <VariantSelector
+          variants={product.variants}
+          selectedVariantId={selectedVariant?.id ?? ''}
+          onSelect={(variant) => setSelectedVariant(variant)}
+        />
         {product.colorVariants && product.colorVariants.length > 0 && (
-          <section aria-labelledby="color-heading" className="space-y-2">
-            <h2 id="color-heading" className="text-[11px] font-semibold uppercase tracking-[0.08em] text-gray-400">
-              COLOR
-            </h2>
-            <ColorSelector
-              colors={product.colorVariants}
-              selectedColor={selectedColor}
-              onSelect={(color) => setSelectedColor(color)}
-            />
-          </section>
+          <div className="finish-note">
+            Available in {product.colorVariants.length} finishes
+          </div>
+        )}
+        {isOutOfStock && (
+          <p className="mt-2 text-xs font-medium text-red-500">
+            This variant is currently out of stock. Please select another variant to proceed.
+          </p>
+        )}
+      </div>
+
+      {/* 4. Product Name & Selected Subtitle */}
+      <h1 className="product-title">
+        {product.name}
+      </h1>
+      <div className="product-subtitle">
+        {selectedColor ? `${selectedColor.label} • ` : ''}{selectedVariant?.label}
+      </div>
+
+      {/* 5. Price */}
+      <div className="detail-price-row">
+        <span className="detail-price">
+          {formatPrice(currentPrice)}
+        </span>
+
+        {hasDiscount && product.originalPrice && (
+          <span className="detail-price-strike">
+            {formatPrice(product.originalPrice)}
+          </span>
         )}
 
-        {/* 3. Storage / Variant */}
-        <section aria-labelledby="variant-heading" className="space-y-2">
-          <h2 id="variant-heading" className="text-[11px] font-semibold uppercase tracking-[0.08em] text-gray-400">
-            {product.colorVariants && product.colorVariants.length > 0 ? 'STORAGE' : 'VARIANT'}
-          </h2>
-          <VariantSelector
-            variants={product.variants}
-            selectedVariantId={selectedVariant?.id ?? ''}
-            onSelect={(variant) => setSelectedVariant(variant)}
-          />
-          {product.colorVariants && product.colorVariants.length > 0 && (
-            <p className="text-xs text-gray-400 font-normal">
-              Available in {product.colorVariants.length} finishes
-            </p>
-          )}
-          {isOutOfStock && (
-            <p className="text-xs font-medium text-red-500">
-              This variant is currently out of stock. Please select another variant to proceed.
-            </p>
-          )}
-        </section>
+        {hasDiscount && (
+          <span className="save-pill">
+            Save {formatPrice(savings)}
+          </span>
+        )}
+      </div>
 
-        {/* 4. Product Name & Selected Summary */}
-        <div className="pt-1">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 leading-snug">
-            {product.name}
-          </h1>
-          <p className="mt-0.5 text-sm text-gray-500 font-normal">
-            {selectedColor ? `${selectedColor.label} / ` : ''}{selectedVariant?.label}
-          </p>
+      {/* 6. EMI Plans Title */}
+      <div className="plans-title">
+        <span className="bar" />
+        EMI Plans Backed by Mutual Funds
+      </div>
 
-          {/* 5. Price */}
-          <div className="mt-2.5 flex items-baseline gap-2 flex-wrap">
-            <span className="text-2xl font-bold tracking-tight text-gray-900">
-              {formatPrice(currentPrice)}
-            </span>
+      <EMIPlanList
+        plans={dynamicEmiPlans}
+        selectedPlanId={selectedPlanId}
+        onSelect={(plan) => setSelectedPlanId(plan.id)}
+        savings={savings}
+      />
 
-            {hasDiscount && product.originalPrice && (
-              <span className="text-sm font-normal text-gray-400 line-through">
-                {formatPrice(product.originalPrice)}
-              </span>
-            )}
-
-            {hasDiscount && (
-              <span className="inline-flex items-center rounded-full bg-[#EBFBF2] px-2.5 py-0.5 text-xs font-semibold text-[#1E7E43]">
-                Save {formatPrice(savings)}
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* 6. EMI Plans */}
-        <section aria-labelledby="emi-heading" className="space-y-2.5 pt-2">
-          <div className="flex items-center gap-2" id="emi-heading">
-            <span className="h-3.5 w-1 rounded-full bg-[#712DDC]" />
-            <h2 className="text-xs font-bold uppercase tracking-wider text-[#712DDC]">
-              EMI PLANS BACKED BY MUTUAL FUNDS
-            </h2>
-          </div>
-
-          <EMIPlanList
-            plans={dynamicEmiPlans}
-            selectedPlanId={selectedPlanId}
-            onSelect={(plan) => setSelectedPlanId(plan.id)}
-            savings={savings}
-          />
-        </section>
-
-        {/* 7. CTA */}
-        <div className="pt-2">
-          <CTAButton
-            label={ctaLabel}
-            onClick={() => setIsConfirmationOpen(true)}
-            disabled={isCtaDisabled}
-          />
-        </div>
+      {/* 7. CTA Button */}
+      <div className="mt-2">
+        <CTAButton
+          label={ctaLabel}
+          onClick={() => setIsConfirmationOpen(true)}
+          disabled={isCtaDisabled}
+        />
       </div>
 
       {/* ── Confirmation Modal ── */}

@@ -22,33 +22,30 @@ export default function MarketplaceHome() {
   return (
     <div className="w-full">
       {/* ── Heading & Search in Dedicated Rows ── */}
-      <div className="mb-4">
-        <div className="flex items-center gap-1.5 mb-1">
-          <span className="h-3 w-1 rounded-full bg-[#712DDC]" />
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#712DDC]">
-            1FI MARKETPLACE
-          </span>
+      <div className="section">
+        <div className="section-eyebrow">
+          <div className="bar" />
+          <span>1FI MARKETPLACE</span>
         </div>
-        <h2 className="text-xl font-bold tracking-tight text-gray-900 leading-snug">
-          Shop on no-cost EMI
-        </h2>
-        <p className="mt-0.5 text-xs text-gray-500 font-normal">
+        <h2>Shop on no-cost EMI</h2>
+        <p className="sub">
           Backed by your mutual funds. No credit pull, no charges.
         </p>
 
-        {/* ── Search Bar (Dedicated full-width row inside shell) ── */}
-        <div className="relative w-full mt-3">
+        {/* ── Search Bar ── */}
+        <div className="relative w-full" style={{ marginTop: '14px' }}>
           <svg
-            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2"
+            className="pointer-events-none absolute"
             width="16"
             height="16"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="var(--color-icon-muted)"
+            stroke="var(--text-light)"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
             aria-hidden="true"
+            style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }}
           >
             <circle cx="11" cy="11" r="8" />
             <path d="m21 21-4.3-4.3" />
@@ -59,8 +56,20 @@ export default function MarketplaceHome() {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products or brands..."
             aria-label="Search products"
-            className="w-full rounded-[var(--radius-pill)] border border-gray-200 bg-[var(--color-bg)] py-2.5 pl-10 pr-9 text-xs shadow-xs transition-all focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-light)]"
-            style={{ color: 'var(--color-text-primary)' }}
+            style={{
+              width: '100%',
+              borderRadius: '999px',
+              border: '1px solid #E5E7EB',
+              background: '#FFFFFF',
+              paddingTop: '10px',
+              paddingBottom: '10px',
+              paddingLeft: '40px',
+              paddingRight: '36px',
+              fontSize: '13px',
+              color: 'var(--text-dark)',
+              outline: 'none',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
+            }}
           />
           {search && (
             <button

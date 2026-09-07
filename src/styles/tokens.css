@@ -1,33 +1,42 @@
 :root {
-  /* Brand purple — sampled from the real 1Fi app */
-  --color-primary: #712DDC;
-  --color-primary-gradient-start: #8D3FF3;
-  --color-primary-gradient-end: #863BDC;
-  --color-primary-disabled: #B795EC;
-  --color-primary-light: #EDE8FF;
+  /* Reference Design System Colors */
+  --purple-1: #7C3AED;
+  --purple-2: #6D28D9;
+  --purple-dark: #5B21B6;
+  --accent-green: #DCFCE7;
+  --accent-green-text: #16A34A;
+  --text-dark: #111827;
+  --text-mid: #6B7280;
+  --text-light: #9CA3AF;
+  --bg: #F3F4F6;
+  --card-bg: #FFFFFF;
+  --strike: #B0B0B8;
+  --red: #EF4444;
 
-  /* Neutrals */
-  --color-bg: #FFFFFF;
-  --color-bg-subtle: #F6F6F6;
-  --color-text-primary: #12161F;
-  --color-text-secondary: #6C7177;
-  --color-icon-muted: #CCD1D7;
+  /* Aliases for semantic backward-compatibility */
+  --color-primary: var(--purple-2);
+  --color-primary-gradient-start: var(--purple-1);
+  --color-primary-gradient-end: var(--purple-dark);
+  --color-primary-disabled: #C4B5FD;
+  --color-primary-light: #FAF5FF;
 
-  /* Semantic — existing */
-  --color-success: #00BD7D;
-  --color-accent-gold: #FAB518;
-  --color-error: #EB5757;
+  --color-bg: var(--card-bg);
+  --color-bg-subtle: var(--bg);
+  --color-text-primary: var(--text-dark);
+  --color-text-secondary: var(--text-mid);
+  --color-icon-muted: var(--text-light);
 
-  /* Semantic — new, for pricing/badges (Phase 5) */
-  --color-success-bg: #DCFCE7;
-  --color-success-text: #15803D;
-  --color-new-badge: #D62E20;
-  --color-strikethrough: #9CA3AF;
+  --color-success: var(--accent-green-text);
+  --color-success-bg: var(--accent-green);
+  --color-success-text: var(--accent-green-text);
+  --color-new-badge: var(--red);
+  --color-strikethrough: var(--strike);
 
-  /* Radius */
+  /* Radius tokens */
   --radius-sm: 10px;
-  --radius-md: 18px;
-  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-lg: 18px;
+  --radius-xl: 20px;
   --radius-pill: 999px;
 
   /* Spacing */
