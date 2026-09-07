@@ -3,6 +3,12 @@ import ShopTabs from '../components/shop/ShopTabs';
 
 export default function ShopPage() {
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  // If user hits /shop?tab=marketplace redirect directly to marketplace tab
+  if (location.pathname === '/shop' && searchParams.get('tab') === 'marketplace') {
+    return <Navigate to="/shop/marketplace" replace />;
+  }
 
   // If user hits exactly /shop, redirect to top-brands tab
   if (location.pathname === '/shop') {
@@ -11,39 +17,55 @@ export default function ShopPage() {
 
   return (
     <div className="w-full">
-      {/* ── Hero Section ── */}
-      <section
-        className="relative w-full overflow-hidden"
-        style={{
-          background: 'linear-gradient(160deg, var(--color-primary-gradient-start), var(--color-primary-gradient-end))',
-          borderRadius: '0 0 var(--radius-lg) var(--radius-lg)',
-        }}
-      >
-        {/* Subtle CSS grid texture */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+      {/* ── Hero Section (Faithfully matching 1Fi reference) ── */}
+      <div className="w-full px-4 pt-4">
+        <section
+          className="relative w-full overflow-hidden rounded-[28px] p-5 sm:p-6 text-white shadow-sm min-h-[195px] flex flex-col justify-between"
           style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
-            backgroundSize: '28px 28px',
+            background: 'linear-gradient(135deg, #712DDC 0%, #5B1CB4 100%)',
           }}
-        />
+        >
+          {/* Sparkle Badge */}
+          <div className="relative z-10">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-xs">
+              <span className="text-xs">✨</span>
+              <span>NO-COST EMIS</span>
+            </div>
 
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-5 sm:px-8 lg:px-10 py-10 sm:py-14 md:py-16">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white tracking-tight">
-            Shop smarter with <em className="italic font-normal">1Fi</em>
-          </h1>
-          <p className="mt-2.5 max-w-xl text-sm sm:text-base md:text-lg leading-relaxed text-white/85">
-            Explore curated products with flexible, transparent EMI plans and zero hidden charges.
-          </p>
-        </div>
-      </section>
+            {/* Headline */}
+            <h1 className="mt-3 text-[21px] font-extrabold leading-[1.2] text-white tracking-tight">
+              Shop today, <br />
+              <span className="italic font-medium">Pay later using</span> <br />
+              Mutual funds.
+            </h1>
+
+            {/* Subtitle */}
+            <p className="mt-2 text-[11px] leading-relaxed text-white/85 max-w-[210px]">
+              No credit score required. No extra charges. Backed by your investments.
+            </p>
+          </div>
+
+          {/* Angled Devices Graphic on Right */}
+          <div className="absolute -bottom-4 -right-4 w-[160px] h-[150px] pointer-events-none select-none">
+            <img
+              src="/products/macbook-air-m4-midnight.jpg"
+              alt=""
+              className="absolute right-0 bottom-0 w-[140px] rounded-xl shadow-xl transform -rotate-6 object-cover"
+            />
+            <img
+              src="/products/iphone-17-pro-orange.jpg"
+              alt=""
+              className="absolute right-8 bottom-0 w-[65px] rounded-lg shadow-2xl transform rotate-6 object-cover"
+            />
+          </div>
+        </section>
+      </div>
 
       {/* ── Tabs ── */}
       <ShopTabs />
 
       {/* ── Tab Content ── */}
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <div className="w-full px-4 py-4">
         <Outlet />
       </div>
     </div>

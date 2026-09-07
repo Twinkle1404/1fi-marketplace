@@ -85,15 +85,16 @@ const navItems: NavItem[] = [
 ];
 
 function isShopActive(path: string): boolean {
-  return path === '/shop' || path.startsWith('/shop/');
+  return (
+    path === '/shop' ||
+    path.startsWith('/shop/') ||
+    path.startsWith('/product/') ||
+    path.startsWith('/marketplace/')
+  );
 }
 
 export default function BottomNav() {
   const location = useLocation();
-
-  if (location.pathname.startsWith('/product/')) {
-    return null;
-  }
 
   return (
     <nav

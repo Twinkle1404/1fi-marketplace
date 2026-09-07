@@ -10,11 +10,10 @@ export default function ShopTabs() {
   const location = useLocation();
 
   return (
-    <div className="w-full max-w-md sm:max-w-lg mx-auto mt-6 sm:mt-8 px-4">
+    <div className="w-full mt-4 px-4">
       <nav
         aria-label="Shop sections"
-        className="flex gap-1.5 rounded-[var(--radius-pill)] p-1.5 transition-all"
-        style={{ backgroundColor: 'var(--color-primary-light)' }}
+        className="flex items-center justify-between gap-1"
       >
         {tabs.map((tab) => {
           const isActive = location.pathname === tab.to;
@@ -22,12 +21,12 @@ export default function ShopTabs() {
             <NavLink
               key={tab.to}
               to={tab.to}
-              className="flex-1 rounded-[var(--radius-pill)] px-3 py-2 sm:py-2.5 text-center text-[12px] sm:text-[13px] leading-tight transition-all duration-200"
+              className="flex-1 rounded-full px-3 py-2 text-center text-xs sm:text-[13px] transition-all duration-200"
               style={{
-                backgroundColor: isActive ? 'var(--color-bg)' : 'transparent',
+                backgroundColor: isActive ? '#FFFFFF' : 'transparent',
                 color: isActive ? 'var(--color-primary)' : 'var(--color-text-secondary)',
-                fontWeight: isActive ? 700 : 500,
-                boxShadow: isActive ? '0 2px 8px rgba(113, 45, 220, 0.12)' : 'none',
+                fontWeight: isActive ? 600 : 500,
+                boxShadow: isActive ? '0 2px 8px rgba(0, 0, 0, 0.06)' : 'none',
               }}
             >
               {tab.label}

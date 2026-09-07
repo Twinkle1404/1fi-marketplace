@@ -28,14 +28,14 @@ export default function ColorSelector({
             aria-label={`${color.label}${isSelected ? ' (Selected)' : ''}`}
             title={color.label}
             onClick={() => onSelect(color)}
-            className={`group relative flex h-10 w-10 items-center justify-center rounded-[var(--radius-pill)] transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${
+            className={`group relative flex h-7 w-7 items-center justify-center rounded-full transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] ${
               isSelected
-                ? 'ring-2 ring-offset-2 ring-[var(--color-primary)] scale-105'
-                : 'hover:scale-105 hover:ring-1 hover:ring-gray-300'
+                ? 'ring-2 ring-offset-2 ring-[var(--color-primary)]'
+                : 'hover:ring-1 hover:ring-gray-300'
             }`}
           >
             <span
-              className="h-7 w-7 rounded-[var(--radius-pill)] border border-black/15 shadow-inner transition-transform"
+              className="h-5 w-5 rounded-full border border-black/15 shadow-2xs"
               style={{ backgroundColor: color.hex }}
             />
             {isSelected && (

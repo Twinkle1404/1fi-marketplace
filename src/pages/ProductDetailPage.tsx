@@ -7,7 +7,6 @@ import ColorSelector from '../components/marketplace/ColorSelector';
 import EMIPlanList from '../components/marketplace/EMIPlanList';
 import CTAButton from '../components/marketplace/CTAButton';
 import ConfirmationModal from '../components/marketplace/ConfirmationModal';
-import SectionLabel from '../components/ui/SectionLabel';
 import ProductDetailSkeleton from '../components/ui/ProductDetailSkeleton';
 import ProductImage from '../components/ui/ProductImage';
 import ErrorState from '../components/ui/ErrorState';
@@ -147,7 +146,7 @@ export default function ProductDetailPage() {
   const ctaLabel = isOutOfStock
     ? 'Out of stock'
     : selectedPlan
-    ? `Proceed with ${formatPrice(selectedPlan.monthlyAmount)}/mo for ${selectedPlan.tenureMonths} months`
+    ? `Proceed — ${formatPrice(selectedPlan.monthlyAmount)}/mo →`
     : 'Select an EMI plan';
 
   const handleBack = () => {
@@ -159,228 +158,147 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <div className="w-full pb-32 lg:pb-16">
+    <div className="w-full pb-32">
       {/* ── Top Bar with Back Navigation ── */}
-      <div className="w-full border-b border-gray-200/80 bg-[var(--color-bg)]/90 backdrop-blur-md sticky top-0 z-30">
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={handleBack}
-            aria-label="Back to Marketplace"
-            className="group inline-flex items-center gap-2 text-sm font-bold transition-colors hover:text-[var(--color-primary)]"
-            style={{ color: 'var(--color-text-primary)' }}
+      <div className="w-full border-b border-gray-100 bg-[var(--color-bg)]/95 backdrop-blur-md sticky top-0 z-30 px-4 py-3 flex items-center justify-between">
+        <button
+          type="button"
+          onClick={handleBack}
+          aria-label="Back to Marketplace"
+          className="group inline-flex items-center gap-1.5 text-xs font-bold transition-colors hover:text-[var(--color-primary)]"
+          style={{ color: 'var(--color-text-primary)' }}
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            className="transition-transform group-hover:-translate-x-0.5"
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              className="transition-transform group-hover:-translate-x-1"
-            >
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-            <span>Back to Marketplace</span>
-          </button>
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          <span>Back</span>
+        </button>
 
-          <span
-            className="text-xs font-semibold uppercase tracking-wider hidden sm:inline"
-            style={{ color: 'var(--color-text-secondary)' }}
-          >
-            1Fi Verified Partner
-          </span>
-        </div>
+        <span
+          className="text-[11px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider"
+        >
+          1Fi Marketplace
+        </span>
       </div>
 
-      {/* ── Main Product Detail Content (Responsive 2-column on desktop) ── */}
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Column: Product Image Card */}
-          <div className="lg:col-span-5 w-full">
-            <div className="sticky top-20 rounded-[var(--radius-lg)] border border-gray-200 bg-[var(--color-bg)] p-4 sm:p-6 shadow-sm">
-              <div className="relative aspect-square w-full overflow-hidden rounded-[var(--radius-md)] bg-[var(--color-primary-light)]">
-                <ProductImage
-                  src={selectedColor?.imageUrl || product.imageUrl}
-                  alt={`${product.brand} ${product.name}`}
-                  containerClassName="w-full h-full"
-                />
+      {/* ── Centered Vertical Flow Inside App Shell ── */}
+      <div className="w-full px-4 pt-4 flex flex-col space-y-4">
+        {/* 1. Product Image Card */}
+        <div className="w-full rounded-[24px] border border-gray-100 bg-white p-4 shadow-xs">
+          <div className="relative aspect-[4/3] w-full max-w-[280px] mx-auto overflow-hidden rounded-[16px] bg-white flex items-center justify-center">
+            <ProductImage
+              src={selectedColor?.imageUrl || product.imageUrl}
+              alt={`${product.brand} ${product.name}`}
+              className="object-contain max-h-full max-w-full"
+              containerClassName="w-full h-full flex items-center justify-center"
+            />
 
-                {/* Pinned badges on top-left of image */}
-                <div className="absolute left-3.5 top-3.5 z-10 flex flex-wrap items-center gap-1.5">
-                  {product.isNew && (
-                    <span
-                      className="rounded-[var(--radius-pill)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm"
-                      style={{ backgroundColor: 'var(--color-new-badge)' }}
-                    >
-                      NEW
-                    </span>
-                  )}
-
-                  {product.emiPlans.some((p) => p.interestRate === 0) && (
-                    <span
-                      className="rounded-[var(--radius-pill)] px-3 py-1 text-[11px] font-bold tracking-tight shadow-sm"
-                      style={{
-                        backgroundColor: 'var(--color-success-bg)',
-                        color: 'var(--color-success-text)',
-                      }}
-                    >
-                      No-cost EMI available
-                    </span>
-                  )}
-                </div>
-              </div>
+            {/* Badges */}
+            <div className="absolute left-2.5 top-2.5 z-10 flex flex-wrap items-center gap-1">
+              {product.isNew && (
+                <span className="rounded-md bg-[#D62E20] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-xs">
+                  NEW
+                </span>
+              )}
             </div>
           </div>
+        </div>
 
-          {/* Right Column: Details, Variants, EMI Plans, Action */}
-          <div className="lg:col-span-7 w-full flex flex-col space-y-6">
-            {/* Header info */}
-            <div>
-              <span
-                className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.05em]"
-                style={{ color: 'var(--color-text-secondary)' }}
-              >
-                {product.brand}
+        {/* 2. Color (Finish) */}
+        {product.colorVariants && product.colorVariants.length > 0 && (
+          <section aria-labelledby="color-heading" className="space-y-2">
+            <h2 id="color-heading" className="text-[11px] font-semibold uppercase tracking-[0.08em] text-gray-400">
+              COLOR
+            </h2>
+            <ColorSelector
+              colors={product.colorVariants}
+              selectedColor={selectedColor}
+              onSelect={(color) => setSelectedColor(color)}
+            />
+          </section>
+        )}
+
+        {/* 3. Storage / Variant */}
+        <section aria-labelledby="variant-heading" className="space-y-2">
+          <h2 id="variant-heading" className="text-[11px] font-semibold uppercase tracking-[0.08em] text-gray-400">
+            {product.colorVariants && product.colorVariants.length > 0 ? 'STORAGE' : 'VARIANT'}
+          </h2>
+          <VariantSelector
+            variants={product.variants}
+            selectedVariantId={selectedVariant?.id ?? ''}
+            onSelect={(variant) => setSelectedVariant(variant)}
+          />
+          {product.colorVariants && product.colorVariants.length > 0 && (
+            <p className="text-xs text-gray-400 font-normal">
+              Available in {product.colorVariants.length} finishes
+            </p>
+          )}
+          {isOutOfStock && (
+            <p className="text-xs font-medium text-red-500">
+              This variant is currently out of stock. Please select another variant to proceed.
+            </p>
+          )}
+        </section>
+
+        {/* 4. Product Name & Selected Summary */}
+        <div className="pt-1">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 leading-snug">
+            {product.name}
+          </h1>
+          <p className="mt-0.5 text-sm text-gray-500 font-normal">
+            {selectedColor ? `${selectedColor.label} / ` : ''}{selectedVariant?.label}
+          </p>
+
+          {/* 5. Price */}
+          <div className="mt-2.5 flex items-baseline gap-2 flex-wrap">
+            <span className="text-2xl font-bold tracking-tight text-gray-900">
+              {formatPrice(currentPrice)}
+            </span>
+
+            {hasDiscount && product.originalPrice && (
+              <span className="text-sm font-normal text-gray-400 line-through">
+                {formatPrice(product.originalPrice)}
               </span>
-
-              <h1
-                className="mt-1 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-tight"
-                style={{ color: 'var(--color-text-primary)' }}
-              >
-                {product.name}
-              </h1>
-
-              <p
-                className="mt-2.5 text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed"
-              >
-                {product.description}
-              </p>
-
-              {/* Price display */}
-              <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
-                <span
-                  className="text-3xl sm:text-4xl font-bold tracking-tight"
-                  style={{ color: 'var(--color-text-primary)' }}
-                >
-                  {formatPrice(currentPrice)}
-                </span>
-
-                {hasDiscount && product.originalPrice && (
-                  <span
-                    className="text-base sm:text-lg font-medium line-through"
-                    style={{ color: 'var(--color-strikethrough)' }}
-                  >
-                    {formatPrice(product.originalPrice)}
-                  </span>
-                )}
-
-                {hasDiscount && (
-                  <span
-                    className="inline-flex items-center rounded-[var(--radius-pill)] px-2.5 py-1 text-xs sm:text-sm font-bold tracking-tight"
-                    style={{
-                      backgroundColor: 'var(--color-success-bg)',
-                      color: 'var(--color-success-text)',
-                    }}
-                  >
-                    Save {formatPrice(savings)}
-                  </span>
-                )}
-
-                <span
-                  className="w-full sm:w-auto text-xs sm:text-sm font-medium"
-                  style={{ color: 'var(--color-text-secondary)' }}
-                >
-                  (inclusive of all taxes)
-                </span>
-              </div>
-            </div>
-
-            <hr className="border-gray-200/80" />
-
-            {/* ── Color / Finish Selector Section ── */}
-            {product.colorVariants && product.colorVariants.length > 0 && (
-              <>
-                <section aria-labelledby="color-heading">
-                  <SectionLabel
-                    id="color-heading"
-                    title="Select Finish"
-                    activeValue={selectedColor?.label}
-                    className="mb-3"
-                  />
-
-                  <ColorSelector
-                    colors={product.colorVariants}
-                    selectedColor={selectedColor}
-                    onSelect={(color) => setSelectedColor(color)}
-                  />
-                </section>
-
-                <hr className="border-gray-200/80" />
-              </>
             )}
 
-            {/* ── Variant Selector Section ── */}
-            <section aria-labelledby="variant-heading">
-              <SectionLabel
-                id="variant-heading"
-                title="Select Variant"
-                activeValue={selectedVariant?.label}
-                className="mb-3"
-              />
-
-              <VariantSelector
-                variants={product.variants}
-                selectedVariantId={selectedVariant?.id ?? ''}
-                onSelect={(variant) => setSelectedVariant(variant)}
-              />
-
-              {isOutOfStock && (
-                <p className="mt-2.5 text-xs sm:text-sm font-medium text-red-500">
-                  This variant is currently out of stock. Please select another variant to proceed.
-                </p>
-              )}
-            </section>
-
-            <hr className="border-gray-200/80" />
-
-            {/* ── EMI Plans Section ── */}
-            <section aria-labelledby="emi-heading">
-              <SectionLabel
-                id="emi-heading"
-                title="Choose EMI Plan"
-                activeValue={selectedPlan ? `${selectedPlan.tenureMonths} Months` : null}
-                className="mb-3"
-              />
-
-              <EMIPlanList
-                plans={dynamicEmiPlans}
-                selectedPlanId={selectedPlanId}
-                onSelect={(plan) => setSelectedPlanId(plan.id)}
-              />
-            </section>
-
-            {/* ── Desktop Inline CTA Button ── */}
-            <div className="hidden lg:block pt-4">
-              <CTAButton
-                label={ctaLabel}
-                onClick={() => setIsConfirmationOpen(true)}
-                disabled={isCtaDisabled}
-              />
-              <p className="mt-2 text-center text-xs text-[var(--color-text-secondary)]">
-                Instant approval with 1Fi Credit Limit • No paperwork
-              </p>
-            </div>
+            {hasDiscount && (
+              <span className="inline-flex items-center rounded-full bg-[#EBFBF2] px-2.5 py-0.5 text-xs font-semibold text-[#1E7E43]">
+                Save {formatPrice(savings)}
+              </span>
+            )}
           </div>
         </div>
-      </div>
 
-      {/* ── Sticky Bottom CTA Bar (Mobile & Tablet) ── */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[var(--color-bg)]/95 px-4 py-3.5 backdrop-blur-md border-t border-gray-100 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]">
-        <div className="w-full max-w-lg mx-auto">
+        {/* 6. EMI Plans */}
+        <section aria-labelledby="emi-heading" className="space-y-2.5 pt-2">
+          <div className="flex items-center gap-2" id="emi-heading">
+            <span className="h-3.5 w-1 rounded-full bg-[#712DDC]" />
+            <h2 className="text-xs font-bold uppercase tracking-wider text-[#712DDC]">
+              EMI PLANS BACKED BY MUTUAL FUNDS
+            </h2>
+          </div>
+
+          <EMIPlanList
+            plans={dynamicEmiPlans}
+            selectedPlanId={selectedPlanId}
+            onSelect={(plan) => setSelectedPlanId(plan.id)}
+            savings={savings}
+          />
+        </section>
+
+        {/* 7. CTA */}
+        <div className="pt-2">
           <CTAButton
             label={ctaLabel}
             onClick={() => setIsConfirmationOpen(true)}

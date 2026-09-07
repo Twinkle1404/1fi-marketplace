@@ -4,7 +4,6 @@ import ProductGrid from '../components/marketplace/ProductGrid';
 import Skeleton from '../components/ui/Skeleton';
 import ErrorState from '../components/ui/ErrorState';
 import EmptyState from '../components/ui/EmptyState';
-import SectionLabel from '../components/ui/SectionLabel';
 
 export default function MarketplaceHome() {
   const { products, loading, error, refetch } = useProducts();
@@ -22,35 +21,27 @@ export default function MarketplaceHome() {
 
   return (
     <div className="w-full">
-      {/* ── Header with Section Marker & Responsive Search ── */}
-      <div className="mb-6 sm:mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-        <div>
-          <SectionLabel
-            as="span"
-            title="Curated Electronics & Appliances"
-            className="mb-1.5"
-          />
-
-          <h2
-            className="text-2xl sm:text-3xl font-bold tracking-tight"
-            style={{ color: 'var(--color-text-primary)' }}
-          >
-            1Fi Marketplace
-          </h2>
-          <p
-            className="mt-1 text-sm sm:text-base leading-relaxed"
-            style={{ color: 'var(--color-text-secondary)' }}
-          >
-            Shop your favourite products with flexible EMI options.
-          </p>
+      {/* ── Heading & Search in Dedicated Rows ── */}
+      <div className="mb-4">
+        <div className="flex items-center gap-1.5 mb-1">
+          <span className="h-3 w-1 rounded-full bg-[#712DDC]" />
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#712DDC]">
+            1FI MARKETPLACE
+          </span>
         </div>
+        <h2 className="text-xl font-bold tracking-tight text-gray-900 leading-snug">
+          Shop on no-cost EMI
+        </h2>
+        <p className="mt-0.5 text-xs text-gray-500 font-normal">
+          Backed by your mutual funds. No credit pull, no charges.
+        </p>
 
-        {/* ── Search Bar ── */}
-        <div className="relative w-full md:w-80 lg:w-96">
+        {/* ── Search Bar (Dedicated full-width row inside shell) ── */}
+        <div className="relative w-full mt-3">
           <svg
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2"
-            width="18"
-            height="18"
+            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             stroke="var(--color-icon-muted)"
@@ -68,7 +59,7 @@ export default function MarketplaceHome() {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products or brands..."
             aria-label="Search products"
-            className="w-full rounded-[var(--radius-pill)] border border-gray-200 bg-[var(--color-bg)] py-3 pl-11 pr-10 text-[14px] shadow-sm transition-all focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-light)]"
+            className="w-full rounded-[var(--radius-pill)] border border-gray-200 bg-[var(--color-bg)] py-2.5 pl-10 pr-9 text-xs shadow-xs transition-all focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-light)]"
             style={{ color: 'var(--color-text-primary)' }}
           />
           {search && (
@@ -76,7 +67,7 @@ export default function MarketplaceHome() {
               type="button"
               onClick={() => setSearch('')}
               aria-label="Clear search query"
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 text-gray-600 hover:bg-gray-300 transition-colors text-[11px] font-bold"
+              className="absolute right-3 top-1/2 -translate-y-1/2 flex h-4 w-4 items-center justify-center rounded-full bg-gray-200 text-gray-600 hover:bg-gray-300 transition-colors text-[10px] font-bold"
             >
               ✕
             </button>

@@ -5,10 +5,12 @@ interface EMIPlanCardProps {
   plan: EMIPlan;
   isSelected: boolean;
   onSelect: () => void;
+  savings?: number;
 }
 
-export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardProps) {
+export default function EMIPlanCard({ plan, isSelected, onSelect, savings }: EMIPlanCardProps) {
   const isNoCost = plan.interestRate === 0;
+  const cashbackValue = plan.cashback || (savings && savings > 0 ? savings : undefined);
 
   return (
     <div
@@ -22,100 +24,46 @@ export default function EMIPlanCard({ plan, isSelected, onSelect }: EMIPlanCardP
           onSelect();
         }
       }}
-      className="group relative cursor-pointer rounded-[var(--radius-md)] border-2 p-4 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-      style={{
-        backgroundColor: isSelected ? 'var(--color-primary-light)' : 'var(--color-bg)',
-        borderColor: isSelected ? 'var(--color-primary)' : 'var(--color-icon-muted)',
-        boxShadow: isSelected ? '0 4px 16px rgba(113, 45, 220, 0.12)' : 'none',
-      }}
+      className={`group relative flex items-center justify-between gap-3 cursor-pointer rounded-2xl border p-4 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#712DDC] ${
+        isSelected
+          ? 'border-[#712DDC] bg-[#FAF8FF]/60 shadow-[0_2px_12px_rgba(113,45,220,0.08)]'
+          : 'border-gray-200 bg-white hover:border-gray-300'
+      }`}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex-1">
-          {/* Tenure and Badges (No-cost EMI, Cashback) */}
-          <div className="flex flex-wrap items-center gap-2">
-            <span
-              className="text-[15px] font-bold"
-              style={{ color: 'var(--color-text-primary)' }}
-            >
-              {plan.tenureMonths} Months
-            </span>
-            {isNoCost && (
-              <span
-                className="rounded-[var(--radius-pill)] px-2.5 py-0.5 text-[10px] font-bold tracking-tight shadow-sm"
-                style={{
-                  backgroundColor: 'var(--color-success-bg)',
-                  color: 'var(--color-success-text)',
-                }}
-              >
-                No-cost EMI
-              </span>
-            )}
-            {Boolean(plan.cashback && plan.cashback > 0) && (
-              <span
-                className="rounded-[var(--radius-pill)] px-2.5 py-0.5 text-[10px] font-bold tracking-tight shadow-sm"
-                style={{
-                  backgroundColor: 'var(--color-success-bg)',
-                  color: 'var(--color-success-text)',
-                }}
-              >
-                {formatPrice(plan.cashback!)} cashback
-              </span>
-            )}
-          </div>
-
-          {/* Monthly amount */}
-          <div className="mt-1.5 flex items-baseline gap-1">
-            <span
-              className="text-[20px] font-bold tracking-tight"
-              style={{ color: isSelected ? 'var(--color-primary)' : 'var(--color-text-primary)' }}
-            >
-              {formatPrice(plan.monthlyAmount)}
-            </span>
-            <span
-              className="text-[12px] font-medium"
-              style={{ color: 'var(--color-text-secondary)' }}
-            >
-              / month
-            </span>
-          </div>
-
-          {/* Total payable and Interest rate */}
-          <div
-            className="mt-2.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[12px]"
-            style={{ color: 'var(--color-text-secondary)' }}
-          >
-            <span>Total payable: <strong className="font-semibold text-[var(--color-text-primary)]">{formatPrice(plan.totalPayable)}</strong></span>
-            <span>•</span>
-            <span className={isNoCost ? 'font-semibold text-[var(--color-success)]' : ''}>
-              {isNoCost ? '0% interest' : `${plan.interestRate}% interest`}
-            </span>
-          </div>
-        </div>
-
-        {/* Radio Indicator with Checkmark for selected state (border + tint + checkmark) */}
+      <div className="flex items-center gap-3.5">
+        {/* Custom Radio Button matching 1Fi reference */}
         <div
-          className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-200"
-          style={{
-            borderColor: isSelected ? 'var(--color-primary)' : 'var(--color-icon-muted)',
-            backgroundColor: isSelected ? 'var(--color-primary)' : 'transparent',
-          }}
+          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+            isSelected ? 'border-[#712DDC]' : 'border-gray-300 group-hover:border-gray-400'
+          }`}
           aria-hidden="true"
         >
-          {isSelected && (
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="var(--color-bg)"
-              strokeWidth="3.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-          )}
+          {isSelected && <div className="h-2.5 w-2.5 rounded-full bg-[#712DDC]" />}
         </div>
+
+        {/* Plan Details: Tenure × Monthly & Interest */}
+        <div>
+          <div className="text-[15px] font-bold text-gray-900 leading-tight">
+            {formatPrice(plan.monthlyAmount)} × {plan.tenureMonths} months
+          </div>
+          <div className="mt-1 text-xs text-gray-400 font-normal">
+            {isNoCost ? '0% interest' : `${plan.interestRate}% interest`}
+            <span className="sr-only">, total payable: {formatPrice(plan.totalPayable)}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Badge: Cashback or No-cost EMI */}
+      <div>
+        {cashbackValue ? (
+          <span className="rounded-full bg-[#EBFBF2] px-2.5 py-1 text-xs font-semibold text-[#1E7E43]">
+            +{formatPrice(cashbackValue)} cashback
+          </span>
+        ) : isNoCost ? (
+          <span className="rounded-full bg-[#EBFBF2] px-2.5 py-1 text-xs font-semibold text-[#1E7E43]">
+            No-cost EMI
+          </span>
+        ) : null}
       </div>
     </div>
   );

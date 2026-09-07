@@ -20,24 +20,17 @@ export default function SectionLabel({
 }: SectionLabelProps) {
   return (
     <div className={`flex items-center justify-between gap-2 ${className}`}>
-      <div className="flex items-center gap-2">
-        <span
-          className="h-3.5 w-1 rounded-full shrink-0"
-          style={{ backgroundColor: 'var(--color-primary)' }}
-          aria-hidden="true"
-        />
-        <Component
-          id={id}
-          className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.05em]"
-          style={{ color: 'var(--color-text-secondary)' }}
-        >
-          {title}
-        </Component>
-      </div>
+      <Component
+        id={id}
+        className="text-[11px] font-semibold uppercase tracking-[0.08em]"
+        style={{ color: 'var(--color-text-secondary)' }}
+      >
+        {title}
+      </Component>
 
       {activeValue && (
         <span
-          className="text-[12px] sm:text-[13px] font-bold shrink-0"
+          className="text-[11px] font-medium"
           style={{ color: 'var(--color-primary)' }}
         >
           {activeValue}

@@ -94,6 +94,7 @@ export default function App() {
             <Route path="marketplace" element={<MarketplaceHome />} />
           </Route>
           <Route path="/product/:id" element={<ProductDetailPage />} />
+          <Route path="/marketplace/products/:id" element={<ProductDetailPage />} />
           <Route path="/emi-dues" element={<EmiDuesPage />} />
           <Route path="/limit" element={<LimitPage />} />
           <Route path="/profile" element={<ProfilePage />} />
