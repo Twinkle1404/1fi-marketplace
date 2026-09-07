@@ -33,7 +33,7 @@ export default function MarketplaceHome() {
         </p>
 
         {/* ── Search Bar ── */}
-        <div className="relative w-full" style={{ marginTop: '14px' }}>
+        <div className="relative w-full" style={{ marginTop: '16px', marginBottom: '4px' }}>
           <svg
             className="pointer-events-none absolute"
             width="16"
@@ -45,7 +45,7 @@ export default function MarketplaceHome() {
             strokeLinecap="round"
             strokeLinejoin="round"
             aria-hidden="true"
-            style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }}
+            style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)' }}
           >
             <circle cx="11" cy="11" r="8" />
             <path d="m21 21-4.3-4.3" />
@@ -61,14 +61,14 @@ export default function MarketplaceHome() {
               borderRadius: '999px',
               border: '1px solid #E5E7EB',
               background: '#FFFFFF',
-              paddingTop: '10px',
-              paddingBottom: '10px',
-              paddingLeft: '40px',
-              paddingRight: '36px',
+              paddingTop: '12px',
+              paddingBottom: '12px',
+              paddingLeft: '44px',
+              paddingRight: '38px',
               fontSize: '13px',
               color: 'var(--text-dark)',
               outline: 'none',
-              boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
             }}
           />
           {search && (
