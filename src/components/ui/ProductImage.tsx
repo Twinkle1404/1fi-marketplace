@@ -32,7 +32,7 @@ export default function ProductImage({
           alt={alt}
           onError={() => setHasError(true)}
           className={`h-full w-full object-contain ${className}`}
-          loading="lazy"
+          loading="eager"
         />
       ) : (
         <div

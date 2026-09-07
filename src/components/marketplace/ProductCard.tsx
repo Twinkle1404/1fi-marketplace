@@ -31,7 +31,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link
-      to={`/product/${product.id}`}
+      to={`/marketplace/products/${product.id}`}
       className="card"
       style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column' }}
       aria-label={`${product.name} by ${product.brand}, ${formatPrice(price)}`}
