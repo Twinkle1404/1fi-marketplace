@@ -1,21 +1,10 @@
-import { Link } from 'react-router-dom';
 import EmptyState from '../components/ui/EmptyState';
 
 export default function NearbyStoresPage() {
   return (
     <EmptyState
       title="Nearby Stores"
-      description="Stores near your location will be listed here. Stay tuned for updates."
-      action={
-        <Link
-          to="/shop/marketplace"
-          className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] px-5 py-2 text-[13px] font-semibold text-white transition-opacity hover:opacity-90"
-          style={{ backgroundColor: 'var(--color-primary)' }}
-        >
-          <span>Explore 1Fi Marketplace</span>
-          <span aria-hidden="true">→</span>
-        </Link>
-      }
+      description="Nearby stores and exclusive deals will appear here soon."
       icon={
         <svg
           width="28"
